@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorMain">#4EC9B1</color>
+    <color name="colorAdditional">#83EDD8</color>
+    <color name="colorReject">#FF914D</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorMistakeMain">#FF6083</color>
+    <color name="colorMistakeLight">#FFADAD</color>
+    <color name="colorCorrectMain">#45AF45</color>
+    <color name="colorCorrectLight">#79CE79</color>
+    <color name="colorMainGray">#C4C4C4</color>
+
+    <color name="colorMainDark">#4EC9B1</color>
+    <color name="colorAdditionalDark">#83EDD8</color>
+    <color name="colorRejectDark">#FF914D</color>
+    <color name="colorAccentDark">#D81B60</color>
+    <color name="colorMistakeMainDark">#FF6083</color>
+    <color name="colorMistakeLightDark">#FFADAD</color>
+    <color name="colorCorrectMainDark">#45AF45</color>
+    <color name="colorCorrectLightDark">#79CE79</color>
+    <color name="colorMainGrayDark">#C4C4C4</color>
+</resources>
