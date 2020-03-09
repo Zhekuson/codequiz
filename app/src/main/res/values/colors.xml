@@ -10,8 +10,8 @@
     <color name="colorCorrectLight">#79CE79</color>
     <color name="colorMainGray">#C4C4C4</color>
 
-    <color name="colorMainDark">#4EC9B1</color>
-    <color name="colorAdditionalDark">#83EDD8</color>
+    <color name="colorMainDark">#2b2b2b</color>
+    <color name="colorAdditionalDark">#3c3f41</color>
     <color name="colorRejectDark">#FF914D</color>
     <color name="colorAccentDark">#D81B60</color>
     <color name="colorMistakeMainDark">#FF6083</color>

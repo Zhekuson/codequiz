@@ -3,31 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_tests">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.nuclearfoxes.codequiz.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_tests"
+        android:name="com.nuclearfoxes.codequiz.ui.tests.TestsFragment"
+        android:label="Tests"
+        tools:layout="@layout/fragment_tests" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.nuclearfoxes.codequiz.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_stats"
+        android:name="com.nuclearfoxes.codequiz.ui.stats.StatsFragment"
+        android:label="Stats"
+        tools:layout="@layout/fragment_stats" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.nuclearfoxes.codequiz.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_settings"
+        android:name="com.nuclearfoxes.codequiz.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.nuclearfoxes.codequiz.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
@@ -36,8 +31,8 @@
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.nuclearfoxes.codequiz.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/nav_about"
+        android:name="com.nuclearfoxes.codequiz.ui.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
 </navigation>
