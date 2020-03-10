@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.settings
 
-class SettingsFragment {
+import androidx.fragment.app.Fragment
+
+class SettingsFragment:Fragment() {
 }

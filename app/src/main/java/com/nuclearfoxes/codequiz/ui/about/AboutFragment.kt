@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.about
 
-class AboutFragment {
+import androidx.fragment.app.Fragment
+
+class AboutFragment:Fragment() {
 }
