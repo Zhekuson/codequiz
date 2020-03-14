@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.settings
 
-class SettingsViewModel {
+import androidx.lifecycle.ViewModel
+
+class SettingsViewModel:ViewModel() {
 }

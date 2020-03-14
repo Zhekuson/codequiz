@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.stats
 
-class StatsViewModel {
+import androidx.lifecycle.ViewModel
+
+class StatsViewModel:ViewModel() {
 }

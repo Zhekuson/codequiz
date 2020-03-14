@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.tests
 
-class TestsViewModel {
+import androidx.lifecycle.ViewModel
+
+class TestsViewModel:ViewModel() {
 }

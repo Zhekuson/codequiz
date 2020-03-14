@@ -1,4 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.about
 
-class AboutViewModel {
+import androidx.lifecycle.ViewModel
+
+class AboutViewModel:ViewModel() {
 }
