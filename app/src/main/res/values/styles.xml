@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorMain</item>
         <item name="colorPrimaryDark">@color/colorAdditional</item>
@@ -29,6 +29,13 @@
         <item name="android:textSize">20sp</item>
     </style>
     <style name="TextViewTestsStyleValues" parent="TextViewTestsStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MainButtonStyle" >
+        <item name="android:backgroundTint">@color/colorCorrectMain</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

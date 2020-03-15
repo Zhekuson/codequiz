@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,6 +7,9 @@
 
     <!--Questions count regulation-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/qcount_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -47,8 +50,12 @@
 
     <!--Time regulation-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/time_bar"
+        app:layout_constraintTop_toBottomOf="@+id/qcount_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
         <TextView
             android:id="@+id/time_text_label"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -86,9 +93,59 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
+
+        android:id="@+id/themes_text_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:text="Test themes:"
+        style="@style/TextViewTestsStyle"
+        />
 
+    <!--Tags-->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_test_tags"
+        app:layout_constraintTop_toBottomOf="@+id/themes_text_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp">
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interfaces"
 
+            android:backgroundTint="@color/colorMain"
+            app:closeIconEnabled="true"
+            />
+      <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:background="@color/colorMainGray"
+        />
+        </com.google.android.material.chip.ChipGroup>
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            >
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/MainButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="GO!"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
