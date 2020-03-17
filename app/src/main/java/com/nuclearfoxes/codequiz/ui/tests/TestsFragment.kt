@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
+import kotlinx.android.synthetic.main.fragment_tests.*
 
 
 class TestsFragment: Fragment() {
@@ -20,6 +24,39 @@ class TestsFragment: Fragment() {
         testsViewModel =
             ViewModelProviders.of(this).get(TestsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_tests, container, false)
+        var ld:ArrayList<String> = ArrayList<String>()
+
+        ld.add("dv")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvetefvvd")
+        ld.add("Events")
+        ld.add("dvvd")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("Callbacks")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ld.add("dvvd")
+        ChipGroupCustomAdapter(context!!,root.findViewById(R.id.chip_group_test_tags),ld,testsViewModel)
+
         return root
     }
 }

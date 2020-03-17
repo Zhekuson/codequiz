@@ -7,7 +7,12 @@
         <item name="colorPrimaryDark">@color/colorAdditional</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="DarkAppTheme" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorMain</item>
+        <item name="colorPrimaryDark">@color/colorAdditional</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -35,7 +40,20 @@
     <style name="MainButtonStyle" >
         <item name="android:backgroundTint">@color/colorCorrectMain</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ThemeChipStyle" parent="Theme.MaterialComponents.Light" >
+        <item name="android:closeIcon">@drawable/ic_close_white_24dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textAppearance">@style/ThemeChipTextAppearance</item>
+    </style>
+    <!--TODO add font-->
+    <style name="ThemeChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">25sp</item>
+    </style>
+    <style name="ThemeAddChipStyle" parent="Theme.MaterialComponents.Light">
+        <item name="android:textAppearance">@style/ThemeChipTextAppearance</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 </resources>
