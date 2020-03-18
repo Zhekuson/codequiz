@@ -1,5 +1,6 @@
 package com.nuclearfoxes.codequiz.ui.tests
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.codequiz.quiz.QuizActivity
 import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
 import kotlinx.android.synthetic.main.fragment_tests.*
 
@@ -59,8 +61,14 @@ class TestsFragment: Fragment() {
 
         return root
     }
+
+    override fun onStart() {
+        super.onStart()
+        go_button.setOnClickListener{
+            val intent = Intent(context, QuizActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
 }
-/*     val textView: TextView = root.findViewById(R.id.text_share)
-      testsViewModel.text.observe(this, Observer {
-         textView.text = it
-     })*/
+

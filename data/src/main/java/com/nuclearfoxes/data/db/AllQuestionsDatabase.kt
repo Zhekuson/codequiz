@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.nuclearfoxes.data.db.converters.ArrayListStringsConverter
 import com.nuclearfoxes.data.db.converters.QuestionTypeTypeConverter
-import com.nuclearfoxes.data.db.converters.TagsConverter
 import com.nuclearfoxes.data.models.Question
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 @Database(entities = arrayOf(Question::class),
     exportSchema = false,
     version = 1)
-@TypeConverters(QuestionTypeTypeConverter::class, TagsConverter::class)
+@TypeConverters(QuestionTypeTypeConverter::class, ArrayListStringsConverter::class)
 abstract class AllQuestionsDatabase:RoomDatabase() {
 
     companion object{

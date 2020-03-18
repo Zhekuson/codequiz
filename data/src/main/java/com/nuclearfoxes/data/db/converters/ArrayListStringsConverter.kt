@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 
-object TagsConverter{
+object ArrayListStringsConverter{
     val objectMapper = ObjectMapper()
     @TypeConverter
     fun fromString(value: String):ArrayList<String>{

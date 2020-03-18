@@ -11,6 +11,8 @@ public data class Question(
     @ColumnInfo var question: String,
     @ColumnInfo var type: QuestionType,
     @ColumnInfo var tags: ArrayList<String>,
-    @ColumnInfo var answer: String){
+    @ColumnInfo var rightAnswer: ArrayList<String>,
+    @ColumnInfo var answers:ArrayList<String>
+){
 
 }

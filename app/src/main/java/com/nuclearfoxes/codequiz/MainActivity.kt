@@ -13,8 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
-import com.nuclearfoxes.codequiz.quiz.ScrollingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,8 +37,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        var intent = Intent(this, ScrollingActivity::class.java)
-        startActivity(intent)
     }
 
 

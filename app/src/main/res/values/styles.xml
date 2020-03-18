@@ -61,4 +61,12 @@
         <item name="android:textAppearance">@style/ThemeChipTextAppearance</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="TopBarTextViewTheme">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+    </style>
+
 </resources>
