@@ -1,5 +1,6 @@
 package com.nuclearfoxes.codequiz
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import com.nuclearfoxes.codequiz.quiz.ScrollingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        var intent = Intent(this, ScrollingActivity::class.java)
+        startActivity(intent)
     }
 
 

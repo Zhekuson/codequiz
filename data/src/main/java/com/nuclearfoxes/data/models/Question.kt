@@ -1,6 +1,16 @@
 package com.nuclearfoxes.data.models
 
-data class Question(var question: String,
-                    var type: QuestionType,
-                    var tags: ArrayList<String>,
-                    var answer: String)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+
+@Entity
+public data class Question(
+    @PrimaryKey var id:String,
+    @ColumnInfo var question: String,
+    @ColumnInfo var type: QuestionType,
+    @ColumnInfo var tags: ArrayList<String>,
+    @ColumnInfo var answer: String){
+
+}
