@@ -13,7 +13,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/colorMain"
+        >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -58,15 +60,15 @@
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.viewpager.widget.ViewPager
-        app:layout_constraintTop_toBottomOf="@id/topPanel"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/question_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topPanel">
 
     </androidx.viewpager.widget.ViewPager>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -105,4 +105,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_quiz">QuizActivity</string>
+    <string name="enter_your_answer_here">Enter your answer here...</string>
 </resources>

@@ -3,4 +3,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="70dp"
+        android:layout_margin="@dimen/fab_margin"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/question_text_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question text\n Question text Question text Question text Question text Question text Question textQuestion text"
+                style="@style/QuestionTextTheme"
+                />
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+
+
 </LinearLayout>
