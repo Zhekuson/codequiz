@@ -41,14 +41,14 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/result_recycler_view"
+    <ListView
+        android:id="@+id/result_list_view"
         app:layout_constraintTop_toBottomOf="@+id/topbar"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
