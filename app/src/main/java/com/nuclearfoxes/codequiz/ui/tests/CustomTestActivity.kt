@@ -1,9 +1,11 @@
 package com.nuclearfoxes.codequiz.ui.tests
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.nuclearfoxes.codequiz.R
@@ -12,7 +14,7 @@ import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
 import com.nuclearfoxes.codequiz.ui.tests.adapters.CloseIconClickListener
 import kotlinx.android.synthetic.main.activity_custom_test.*
 
-class CustomTestActivity : AppCompatActivity(), CloseIconClickListener {
+class CustomTestActivity : AppCompatActivity(), CloseIconClickListener, ChooseTagFragment.ConfirmationListener {
     val MAX_TIME:Int = 60
     val MIN_TIME:Int = 1
     val STEP_TIME = 1
@@ -45,11 +47,21 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
         add_tag_chip.setOnClickListener {
-            
+            ChooseTagFragment().show(supportFragmentManager,"TAG")
         }
     }
 
+
+
     override fun onClose(chip: Chip) {
         (chip.parent as ChipGroup).removeView(chip)
+    }
+
+    override fun confirmButtonClicked() {
+
+    }
+
+    override fun cancelButtonClicked() {
+
     }
 }

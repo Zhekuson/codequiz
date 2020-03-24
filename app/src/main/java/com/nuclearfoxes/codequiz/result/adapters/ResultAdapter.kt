@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.CheckBox
 import android.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.LayoutSetup
 import com.nuclearfoxes.data.models.Question
 import com.nuclearfoxes.data.models.QuestionType
+import kotlin.reflect.jvm.internal.impl.util.Check
 
 
 class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<String>>>,
@@ -27,6 +29,7 @@ class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<St
             QuestionType.MULTIPLE_CHOICE-> {
                 var layout = inflater.inflate(R.layout.multiple_choice_question_layout, null)
                 LayoutSetup.setupMultipleLayout(questionsAndAnswers[position].first, mContext,layout)
+
                 return layout
             }
             QuestionType.OPEN ->  {

@@ -90,7 +90,6 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             style="@style/TestSeekBar"
-            android:progress="20"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
