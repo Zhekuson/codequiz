@@ -14,7 +14,6 @@ class QuestionFragmentPagerAdapter(val myContext: Context?,
     override fun getItem(position: Int): Fragment {
         return QuestionFragment(questions[position])
     }
-
     override fun getCount(): Int {
         return questions.size
     }

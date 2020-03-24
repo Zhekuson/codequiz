@@ -65,8 +65,9 @@ class TestsFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         go_button.setOnClickListener{
-            val intent = Intent(context, QuizActivity::class.java)
-            startActivity(intent)
+            val intentNext = Intent(context, QuizActivity::class.java)
+            intentNext.putExtra("TIME_MS", 10000L)
+            startActivity(intentNext)
         }
     }
 

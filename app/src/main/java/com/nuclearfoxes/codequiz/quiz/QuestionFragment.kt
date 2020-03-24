@@ -1,26 +1,31 @@
 package com.nuclearfoxes.codequiz.quiz
 
-import android.content.ContextWrapper
 import android.os.Bundle
-import android.view.ContextThemeWrapper
+import android.text.Editable
+import android.text.SpannableString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.fasterxml.jackson.databind.cfg.ContextAttributes
-import com.google.android.material.radiobutton.MaterialRadioButton
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupSingleLayout
 import com.nuclearfoxes.data.models.Question
 import com.nuclearfoxes.data.models.QuestionType
-import kotlinx.android.synthetic.main.activity_quiz.*
-import kotlinx.android.synthetic.main.activity_quiz.view.*
-import kotlinx.android.synthetic.main.question_layout.*
+import kotlinx.android.synthetic.main.multiple_choice_question_layout.*
+import kotlinx.android.synthetic.main.open_question_layout.*
+import kotlinx.android.synthetic.main.single_choice_question_layout.*
+
 
 class QuestionFragment(val question: Question):Fragment() {
+    var savedInfo: Bundle = Bundle()
+    var alreadyStarted = false
+
+    override fun onPause() {
+        super.onPause()
+        storeData()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,9 +34,10 @@ class QuestionFragment(val question: Question):Fragment() {
         val root = when(question.type){
              QuestionType.MULTIPLE_CHOICE -> {
 
-                 var layout =inflater.inflate(R.layout.multiple_choice_question_layout,
+                 var layout =inflater.inflate(
+                     R.layout.multiple_choice_question_layout,
                      container, false)
-                 setupMultipleLayout(layout)
+                 LayoutSetup.setupMultipleLayout(question,context!!,layout)
                  return layout
              }
              QuestionType.OPEN -> inflater.inflate(R.layout.open_question_layout,
@@ -40,48 +46,61 @@ class QuestionFragment(val question: Question):Fragment() {
 
                  var layout = inflater.inflate(R.layout.single_choice_question_layout,
                      container, false)
-                 setupSingleLayout(layout)
+                 setupSingleLayout(question,context!!,layout)
                  return layout
              }
         }
+
         return root
     }
-    fun setupSingleLayout(layout: View){
-        var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
-        questionTextView.text = question.question
-        var radioGroup = layout.findViewById(R.id.single_choice_radio_group) as RadioGroup
-        for (answer in question.answers) {
-            var rb =  MaterialRadioButton(context!!)
-            rb.text = answer
-            radioGroup.addView(rb)
-            //TODO add theme wrapper
+    fun bindListeners(){
+        
+    }
+    fun storeData(){
+        when(question.type){
+            QuestionType.SINGLE_CHOICE->{
+                savedInfo.putInt("ANSWER",single_choice_radio_group.checkedRadioButtonId)
+            }
+            QuestionType.OPEN->{
+                savedInfo.putString("ANSWER", open_question_edit_text.text.toString())
+            }
+            QuestionType.MULTIPLE_CHOICE->{
+                var answers = BooleanArray(checkboxes_layout.childCount)
+                for (cb in 0 until checkboxes_layout.childCount){
+                    answers[cb] = (checkboxes_layout.getChildAt(cb) as CheckBox).isChecked
+                }
+                savedInfo.putBooleanArray("ANSWER",answers)
+            }
         }
     }
+    fun restoreData(){
+        when (question.type) {
+            QuestionType.SINGLE_CHOICE -> {
+                single_choice_radio_group.check(savedInfo!!.getInt("ANSWER"))
+            }
+            QuestionType.OPEN -> {
+                var str: Editable = Editable.Factory.getInstance().newEditable(
+                    savedInfo!!.getString("ANSWER")
+                )
+                open_question_edit_text.text = str
+            }
+            QuestionType.MULTIPLE_CHOICE -> {
+                var answers = savedInfo!!.getBooleanArray("ANSWER")
+                for (cb in 0 until checkboxes_layout.childCount) {
+                    if (answers[cb]) {
+                        (checkboxes_layout.getChildAt(cb) as CheckBox).isChecked = true
+                    }
+                }
 
-    fun setupMultipleLayout(layout:View){
-        var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
-        questionTextView.text = question.question
-        //topPanel.question_id_textView.text = question.id
-        var answersLayout = layout.findViewById(R.id.checkboxes_layout) as LinearLayout
-        for (answer in question.answers) {
-            var cb = CheckBox(context)
-            cb.text = answer
-            answersLayout.addView(cb)
+            }
         }
-        //TODO add theme wrapper
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        //TODO save instance
-        //outState.putSerializable("ANSWER", "")
-        super.onSaveInstanceState(outState)
-
     }
     override fun onStart() {
-
+        if(alreadyStarted) {
+            restoreData()
+        }
+        alreadyStarted = true
         super.onStart()
     }
-    fun bindQuestion(){
 
-    }
 }
