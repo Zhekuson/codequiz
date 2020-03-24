@@ -44,7 +44,7 @@ class QuizActivity : AppCompatActivity() {
                 var resultIntent = Intent(this@QuizActivity,ResultActivity::class.java)
                 var rightAnswers:Int = 0
                 var questionsAndAnswers = ArrayList<Pair<Question,ArrayList<String>>>()
-                for(childNum in 0 until question_view_pager.children.count()){
+                for(childNum in 0 until questions.size){
                     var answ = ArrayList<String>()
                     var fragment = mAdapter.getItem(childNum) as QuestionFragment// question_view_pager.adapter
                     when(questions[childNum].type){
@@ -76,6 +76,7 @@ class QuizActivity : AppCompatActivity() {
 
                 resultIntent.putExtra("QUESTIONS_AND_ANSWERS",questionsAndAnswers)
                 resultIntent.putExtra("RIGHT_ANSWERS_COUNT",rightAnswers)
+                startActivity(resultIntent)
             }
         }
         timer.start()
