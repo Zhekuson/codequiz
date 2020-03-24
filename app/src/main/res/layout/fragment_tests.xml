@@ -6,154 +6,35 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <!--Questions count regulation-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/qcount_bar"
-            app:layout_constraintLeft_toLeftOf="parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/quiz_by_id_button"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/questions_count_text_label"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginStart="20dp"
-                style="@style/TextViewTestsStyle"
-                android:text="Number of questions: "
-                />
-            <TextView
-                android:id="@+id/questions_count_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_margin"
-                style="@style/TextViewTestsStyleValues"
-                app:layout_constraintLeft_toRightOf="@id/questions_count_text_label"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="20"
-                />
-            <SeekBar
-                app:layout_constraintTop_toBottomOf="@id/questions_count_text_label"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/question_count_seek_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="100"
-                android:layout_marginTop="@dimen/tests_page_top_margin"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                style="@style/TestSeekBar"
-                android:progress="20"
-                />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--Time regulation-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/time_bar"
-            app:layout_constraintTop_toBottomOf="@+id/qcount_bar"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:id="@+id/time_text_label"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                style="@style/TextViewTestsStyle"
-                android:text="Time:"
-                />
-            <TextView
-                android:id="@+id/time_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                style="@style/TextViewTestsStyleValues"
-                app:layout_constraintLeft_toRightOf="@id/time_text_label"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="1 min"
-                />
-            <SeekBar
-                android:id="@+id/time_seek_bar_tests"
-                app:layout_constraintTop_toBottomOf="@id/time_text_label"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="100"
-                android:layout_marginTop="@dimen/tests_page_top_margin"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                style="@style/TestSeekBar"
-                android:progress="20"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-            android:id="@+id/themes_text_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_bar"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:text="Test themes:"
-            style="@style/TextViewTestsStyle"
+            android:text="   Quiz by ID   "
+            android:layout_margin="@dimen/fab_margin"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/all_random_button"
+            app:layout_constraintTop_toBottomOf="@id/quiz_by_id_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" All Random "
+            android:layout_margin="@dimen/fab_margin"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/custom_text_button"
+            app:layout_constraintTop_toBottomOf="@id/all_random_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom test"
+            android:layout_margin="@dimen/fab_margin"
             />
 
-            <!--Add Tags-->
-            <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_test_tags"
-                app:layout_constraintTop_toBottomOf="@id/themes_text_label"
-                app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-
-                >
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Interfaces"
-                app:chipBackgroundColor="@color/colorMain"
-                app:closeIcon="@drawable/ic_close_white_24dp"
-                app:closeIconEnabled="true"
-                style="@style/ThemeChipStyle"
-                />
-          <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:background="@color/colorMainGray"
-              style="@style/ThemeAddChipStyle"
-            />
-            </com.google.android.material.chip.ChipGroup>
-    <!--button go-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:id="@+id/go_button_layout"
-            >
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/go_button"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:text="Go!"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:cornerRadius="0dp"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

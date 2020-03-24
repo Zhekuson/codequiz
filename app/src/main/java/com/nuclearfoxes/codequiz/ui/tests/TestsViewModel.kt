@@ -26,7 +26,6 @@ class TestsViewModel:ViewModel(), CloseIconClickListener {
 
     override fun onClose(chip: Chip) {
         (chip.parent as ChipGroup).removeView(chip)
-
     }
 
 
