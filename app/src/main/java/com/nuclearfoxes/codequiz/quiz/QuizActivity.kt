@@ -63,7 +63,7 @@ class QuizActivity : AppCompatActivity() {
                             answ.add(answer)
                         }
                         QuestionType.SINGLE_CHOICE->{
-                            val str = (findViewById<RadioButton>(fragment.savedInfo.getInt("ANSWER"))).text
+                            val str = fragment.savedInfo.getString("ANSWER")
                             answ.add(str.toString())
                         }
                     }
@@ -100,24 +100,64 @@ class QuizActivity : AppCompatActivity() {
     }
     fun setupAdapters(){
         var questions1: ArrayList<Question> = ArrayList()
-        questions1.add(Question("d",
-            "ef",
+        questions1.add(Question("1",
+            "Which of these types are primitives in C#?",
             QuestionType.MULTIPLE_CHOICE,
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe")))
-        questions1.add(Question("vd",
-            "ef",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe")))
-        questions1.add(Question("vd",
-            "ef",
+            arrayListOf("Primitives","Basics"),
+            arrayListOf("int","double", "byte", "short", "long"),
+            arrayListOf("int","double", "byte", "short", "long","List")))
+        questions1.add(Question("2",
+            "What will be output after running this code:\n " +
+                    "static void SetXY(ref int x, ref int y){\n" +
+                    "   x = ++x * 2 - 1;\n" +
+                    "   y = y-- * 2;\n" +
+                    "static void Main(string[] args){\n" +
+                    "   int x = 3;\n" +
+                    "   int y = 7;\n" +
+                    "   SetXY(ref x, ref y);\n" +
+                    "   Console.Write(x+\"+\"+y);\n" +
+                    "} \n" +
+                    "print *** if compile error will happen," +
+                    " +++ if exception will be thrown, --- if no output ",
             QuestionType.OPEN,
             arrayListOf("efe","fe"),
             arrayListOf("efe","fe"),
             arrayListOf("efe","fe")))
+        questions1.add(Question("3",
+            "In the namespace (not in the class bounds) can be declared:",
+            QuestionType.SINGLE_CHOICE,
+            arrayListOf("","fe"),
+            arrayListOf("Class"),
+            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
+            ))
+        questions1.add(Question("3",
+            "In the namespace (not in the class bounds) can be declared:",
+            QuestionType.SINGLE_CHOICE,
+            arrayListOf("","fe"),
+            arrayListOf("Class"),
+            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
+            ))
+        questions1.add(Question("3",
+            "In the namespace (not in the class bounds) can be declared:",
+            QuestionType.SINGLE_CHOICE,
+            arrayListOf("","fe"),
+            arrayListOf("Class"),
+            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
+        ))
+        questions1.add(Question("3",
+            "In the namespace (not in the class bounds) can be declared:",
+            QuestionType.SINGLE_CHOICE,
+            arrayListOf("","fe"),
+            arrayListOf("Class"),
+            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
+        ))
+        questions1.add(Question("3",
+            "In the namespace (not in the class bounds) can be declared:",
+            QuestionType.SINGLE_CHOICE,
+            arrayListOf("","fe"),
+            arrayListOf("Class"),
+            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
+        ))
 
         mAdapter =             QuestionFragmentPagerAdapter(
             this,

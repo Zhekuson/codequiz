@@ -9,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupOpenLayout
 import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupSingleLayout
 import com.nuclearfoxes.data.models.Question
 import com.nuclearfoxes.data.models.QuestionType
@@ -45,8 +47,12 @@ class QuestionFragment(val question: Question):Fragment() {
                  LayoutSetup.setupMultipleLayout(question,context!!,layout)
                  return layout
              }
-             QuestionType.OPEN -> inflater.inflate(R.layout.open_question_layout,
-                 container, false)
+             QuestionType.OPEN ->{
+               var layout = inflater.inflate(R.layout.open_question_layout,
+                   container, false)
+                 setupOpenLayout(question,context!!,layout)
+                 return layout
+             }
              QuestionType.SINGLE_CHOICE -> {
 
                  var layout = inflater.inflate(R.layout.single_choice_question_layout,
@@ -92,7 +98,15 @@ class QuestionFragment(val question: Question):Fragment() {
     fun storeData(){
         when(question.type){
             QuestionType.SINGLE_CHOICE->{
-                savedInfo.putInt("ANSWER",single_choice_radio_group.checkedRadioButtonId)
+                for (i in 0 until single_choice_radio_group.childCount){
+                    val rb= (single_choice_radio_group.getChildAt(i) as RadioButton)
+                    if(rb.isChecked){
+                        savedInfo.putString("ANSWER",rb.text.toString())
+                        break
+                    }
+                }
+
+
             }
             QuestionType.OPEN->{
                 savedInfo.putString("ANSWER", open_question_edit_text.text.toString())
@@ -109,7 +123,13 @@ class QuestionFragment(val question: Question):Fragment() {
     fun restoreData(){
         when (question.type) {
             QuestionType.SINGLE_CHOICE -> {
-                single_choice_radio_group.check(savedInfo!!.getInt("ANSWER"))
+                for (i in 0 until single_choice_radio_group.childCount){
+                    val rb= (single_choice_radio_group.getChildAt(i) as RadioButton)
+                    if(rb.text == savedInfo.getString("ANSWER")){
+                        rb.isChecked = true
+                        break
+                    }
+                }
             }
             QuestionType.OPEN -> {
                 var str: Editable = Editable.Factory.getInstance().newEditable(

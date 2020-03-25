@@ -20,6 +20,7 @@ class StatsFragment:Fragment() {
         statsViewModel =
             ViewModelProviders.of(this).get(StatsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_stats, container, false)
+
         return root
     }
 }

@@ -24,24 +24,26 @@ class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<St
         val inflater =
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        //TODO ADD BACKGROUND
         convertedView = when(questionsAndAnswers[position].first.type){
             QuestionType.MULTIPLE_CHOICE-> {
                 var layout = inflater.inflate(R.layout.multiple_choice_question_layout, null)
-                LayoutSetup.setupMultipleLayout(questionsAndAnswers[position].first, mContext,layout)
-
+                LayoutSetup.setupMultipleLayout(questionsAndAnswers[position].first,
+                    mContext,layout,questionsAndAnswers[position].second)
                 return layout
             }
             QuestionType.OPEN ->  {
-                inflater.inflate(R.layout.open_question_layout, null)
+                var layout = inflater.inflate(R.layout.open_question_layout, null)
+                LayoutSetup.setupOpenLayout(questionsAndAnswers[position].first,mContext,layout)
+                return layout
             }
             QuestionType.SINGLE_CHOICE ->   {
                 var layout = inflater.inflate(R.layout.single_choice_question_layout, null)
-                LayoutSetup.setupSingleLayout(questionsAndAnswers[position].first, mContext,layout)
+                LayoutSetup.setupSingleLayout(questionsAndAnswers[position].first, mContext,
+                    layout,questionsAndAnswers[position].second[0])
                 return layout
             }
         }
-        return convertedView
+        return convertedView!!
     }
 
     override fun getItem(position: Int): Any {
