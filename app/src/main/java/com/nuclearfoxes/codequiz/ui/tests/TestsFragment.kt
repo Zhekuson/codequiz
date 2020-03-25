@@ -38,10 +38,10 @@ class TestsFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        custom_text_button.setOnClickListener{
+       /* custom_text_button.setOnClickListener{
             var intentNext = Intent(this.activity,CustomTestActivity::class.java)
             startActivity(intentNext)
-        }
+        }*/
     }
 
 }

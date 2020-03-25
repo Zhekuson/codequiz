@@ -81,6 +81,11 @@
         <item name="android:layout_marginRight">@dimen/fab_margin</item>
         <item name="android:layout_marginBottom">@dimen/default_margin</item>
         <item name= "android:layout_marginTop">@dimen/default_margin</item>
+    </style>
 
+    <style name="TextViewTestsFragmentStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
     </style>
 </resources>
