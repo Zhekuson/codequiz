@@ -6,35 +6,101 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/quiz_by_id_button"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/exam_mode_layout"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    Quiz by ID    "
-            android:layout_margin="@dimen/fab_margin"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/all_random_button"
-            app:layout_constraintTop_toBottomOf="@id/quiz_by_id_button"
+            >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/exam_mode_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Exam mode  "
+                    android:layout_margin="@dimen/fab_margin"
+                    android:gravity="center"
+                    />
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@id/exam_mode_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/exam_mode_text_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exam_mode_description"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:textAlignment="center"
+                    style="@style/TextViewTestsStyle"
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/all_random_layout"
+            app:layout_constraintTop_toBottomOf="@id/exam_mode_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" All Random "
-            android:layout_margin="@dimen/fab_margin"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/custom_text_button"
-            app:layout_constraintTop_toBottomOf="@id/all_random_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/all_random_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" All Random "
+                    android:layout_margin="@dimen/fab_margin"
+                    />
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@id/all_random_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/all_random_text_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_random_mode_description"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:textAlignment="center"
+                    style="@style/TextViewTestsStyle"
+                    />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/custom_test_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom test"
-            android:layout_margin="@dimen/fab_margin"
-            />
+            app:layout_constraintTop_toBottomOf="@id/all_random_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/custom_test_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Custom test"
+                    android:layout_margin="@dimen/fab_margin"
+                    />
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@id/custom_test_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/custom_test_text_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/custom_mode_description"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:textAlignment="center"
+                    style="@style/TextViewTestsStyle"
+                    />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

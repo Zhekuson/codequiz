@@ -1,9 +1,8 @@
-package com.nuclearfoxes.data.models
+package com.nuclearfoxes.data.models.question
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import java.io.Serializable
 
 

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.result.adapters.ResultAdapter
-import com.nuclearfoxes.data.models.Question
+import com.nuclearfoxes.data.models.question.Question
 import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {

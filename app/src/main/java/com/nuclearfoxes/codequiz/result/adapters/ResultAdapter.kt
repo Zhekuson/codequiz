@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.CheckBox
-import android.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.LayoutSetup
-import com.nuclearfoxes.data.models.Question
-import com.nuclearfoxes.data.models.QuestionType
-import kotlin.reflect.jvm.internal.impl.util.Check
+import com.nuclearfoxes.data.models.question.Question
+import com.nuclearfoxes.data.models.question.QuestionType
 
 
 class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<String>>>,

@@ -1,6 +1,6 @@
 package com.nuclearfoxes.data.db.converters
 
-import com.nuclearfoxes.data.models.QuestionType
+import com.nuclearfoxes.data.models.question.QuestionType
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -10,7 +10,8 @@ internal class QuestionTypeTypeConverterTest {
     @Test
     fun stringToQuestionTypeTest() {
         assertEquals(QuestionTypeTypeConverter
-            .stringToQuestionType("OPEN"),QuestionType.OPEN)
+            .stringToQuestionType("OPEN"),
+            QuestionType.OPEN)
     }
 
     @Test

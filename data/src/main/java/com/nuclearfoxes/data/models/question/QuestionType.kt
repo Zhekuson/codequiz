@@ -1,4 +1,4 @@
-package com.nuclearfoxes.data.models
+package com.nuclearfoxes.data.models.question
 
 public enum class QuestionType {
     OPEN,

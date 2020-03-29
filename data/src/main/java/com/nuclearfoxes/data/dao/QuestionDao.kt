@@ -2,7 +2,7 @@ package com.nuclearfoxes.data.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.nuclearfoxes.data.models.Question
+import com.nuclearfoxes.data.models.question.Question
 
 @Dao
 interface QuestionDao {

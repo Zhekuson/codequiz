@@ -3,26 +3,16 @@ package com.nuclearfoxes.codequiz.quiz
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.PersistableBundle
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.CheckBox
-import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
 import com.nuclearfoxes.codequiz.result.ResultActivity
-import com.nuclearfoxes.data.models.Question
-import com.nuclearfoxes.data.models.QuestionType
+import com.nuclearfoxes.data.models.question.Question
+import com.nuclearfoxes.data.models.question.QuestionType
 
 import kotlinx.android.synthetic.main.activity_quiz.*
-import kotlinx.android.synthetic.main.multiple_choice_question_layout.*
-import kotlinx.android.synthetic.main.open_question_layout.*
-import kotlinx.android.synthetic.main.single_choice_question_layout.*
 import kotlin.collections.ArrayList
 
 class QuizActivity : AppCompatActivity() {
@@ -100,64 +90,87 @@ class QuizActivity : AppCompatActivity() {
     }
     fun setupAdapters(){
         var questions1: ArrayList<Question> = ArrayList()
-        questions1.add(Question("1",
-            "Which of these types are primitives in C#?",
-            QuestionType.MULTIPLE_CHOICE,
-            arrayListOf("Primitives","Basics"),
-            arrayListOf("int","double", "byte", "short", "long"),
-            arrayListOf("int","double", "byte", "short", "long","List")))
-        questions1.add(Question("2",
-            "What will be output after running this code:\n " +
-                    "static void SetXY(ref int x, ref int y){\n" +
-                    "   x = ++x * 2 - 1;\n" +
-                    "   y = y-- * 2;\n" +
-                    "static void Main(string[] args){\n" +
-                    "   int x = 3;\n" +
-                    "   int y = 7;\n" +
-                    "   SetXY(ref x, ref y);\n" +
-                    "   Console.Write(x+\"+\"+y);\n" +
-                    "} \n" +
-                    "print *** if compile error will happen," +
-                    " +++ if exception will be thrown, --- if no output ",
-            QuestionType.OPEN,
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe"),
-            arrayListOf("efe","fe")))
-        questions1.add(Question("3",
-            "In the namespace (not in the class bounds) can be declared:",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("","fe"),
-            arrayListOf("Class"),
-            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
-            ))
-        questions1.add(Question("3",
-            "In the namespace (not in the class bounds) can be declared:",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("","fe"),
-            arrayListOf("Class"),
-            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
-            ))
-        questions1.add(Question("3",
-            "In the namespace (not in the class bounds) can be declared:",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("","fe"),
-            arrayListOf("Class"),
-            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
-        ))
-        questions1.add(Question("3",
-            "In the namespace (not in the class bounds) can be declared:",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("","fe"),
-            arrayListOf("Class"),
-            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
-        ))
-        questions1.add(Question("3",
-            "In the namespace (not in the class bounds) can be declared:",
-            QuestionType.SINGLE_CHOICE,
-            arrayListOf("","fe"),
-            arrayListOf("Class"),
-            arrayListOf("Static method","Class","Field","Non-static method", "Static field")
-        ))
+        questions1.add(
+            Question(
+                "1",
+                "Which of these types are primitives in C#?",
+                QuestionType.MULTIPLE_CHOICE,
+                arrayListOf("Primitives", "Basics"),
+                arrayListOf("int", "double", "byte", "short", "long"),
+                arrayListOf("int", "double", "byte", "short", "long", "List")
+            )
+        )
+        questions1.add(
+            Question(
+                "2",
+                "What will be output after running this code:\n " +
+                        "static void SetXY(ref int x, ref int y){\n" +
+                        "   x = ++x * 2 - 1;\n" +
+                        "   y = y-- * 2;\n" +
+                        "static void Main(string[] args){\n" +
+                        "   int x = 3;\n" +
+                        "   int y = 7;\n" +
+                        "   SetXY(ref x, ref y);\n" +
+                        "   Console.Write(x+\"+\"+y);\n" +
+                        "} \n" +
+                        "print *** if compile error will happen," +
+                        " +++ if exception will be thrown, --- if no output ",
+                QuestionType.OPEN,
+                arrayListOf("efe", "fe"),
+                arrayListOf("efe", "fe"),
+                arrayListOf("efe", "fe")
+            )
+        )
+        questions1.add(
+            Question(
+                "3",
+                "In the namespace (not in the class bounds) can be declared:",
+                QuestionType.SINGLE_CHOICE,
+                arrayListOf("", "fe"),
+                arrayListOf("Class"),
+                arrayListOf("Static method", "Class", "Field", "Non-static method", "Static field")
+            )
+        )
+        questions1.add(
+            Question(
+                "3",
+                "In the namespace (not in the class bounds) can be declared:",
+                QuestionType.SINGLE_CHOICE,
+                arrayListOf("", "fe"),
+                arrayListOf("Class"),
+                arrayListOf("Static method", "Class", "Field", "Non-static method", "Static field")
+            )
+        )
+        questions1.add(
+            Question(
+                "3",
+                "In the namespace (not in the class bounds) can be declared:",
+                QuestionType.SINGLE_CHOICE,
+                arrayListOf("", "fe"),
+                arrayListOf("Class"),
+                arrayListOf("Static method", "Class", "Field", "Non-static method", "Static field")
+            )
+        )
+        questions1.add(
+            Question(
+                "3",
+                "In the namespace (not in the class bounds) can be declared:",
+                QuestionType.SINGLE_CHOICE,
+                arrayListOf("", "fe"),
+                arrayListOf("Class"),
+                arrayListOf("Static method", "Class", "Field", "Non-static method", "Static field")
+            )
+        )
+        questions1.add(
+            Question(
+                "3",
+                "In the namespace (not in the class bounds) can be declared:",
+                QuestionType.SINGLE_CHOICE,
+                arrayListOf("", "fe"),
+                arrayListOf("Class"),
+                arrayListOf("Static method", "Class", "Field", "Non-static method", "Static field")
+            )
+        )
 
         mAdapter =             QuestionFragmentPagerAdapter(
             this,

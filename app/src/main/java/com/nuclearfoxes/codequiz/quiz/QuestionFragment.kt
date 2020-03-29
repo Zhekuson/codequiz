@@ -1,9 +1,7 @@
 package com.nuclearfoxes.codequiz.quiz
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.SpannableString
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +9,13 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupOpenLayout
 import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupSingleLayout
-import com.nuclearfoxes.data.models.Question
-import com.nuclearfoxes.data.models.QuestionType
+import com.nuclearfoxes.data.models.question.Question
+import com.nuclearfoxes.data.models.question.QuestionType
 import kotlinx.android.synthetic.main.multiple_choice_question_layout.*
 import kotlinx.android.synthetic.main.open_question_layout.*
 import kotlinx.android.synthetic.main.single_choice_question_layout.*

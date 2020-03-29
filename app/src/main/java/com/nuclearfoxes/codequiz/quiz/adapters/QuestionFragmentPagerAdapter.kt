@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.nuclearfoxes.codequiz.quiz.QuestionFragment
-import com.nuclearfoxes.data.models.Question
+import com.nuclearfoxes.data.models.question.Question
 
 class QuestionFragmentPagerAdapter(val myContext: Context?,
                                    fm: FragmentManager,

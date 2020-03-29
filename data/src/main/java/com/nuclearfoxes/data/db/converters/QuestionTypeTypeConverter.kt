@@ -1,7 +1,7 @@
 package com.nuclearfoxes.data.db.converters
 
 import androidx.room.TypeConverter
-import com.nuclearfoxes.data.models.QuestionType
+import com.nuclearfoxes.data.models.question.QuestionType
 
 object QuestionTypeTypeConverter {
         @TypeConverter

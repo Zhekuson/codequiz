@@ -5,21 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.nuclearfoxes.data.db.converters.ArrayListStringsConverter
-import com.nuclearfoxes.data.db.converters.QuestionTypeTypeConverter
-import com.nuclearfoxes.data.models.question.Question
+import com.nuclearfoxes.data.db.converters.QuizTypeTypeConverter
+import com.nuclearfoxes.data.models.quiz.QuizResult
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = arrayOf(Question::class),
-    exportSchema = false,
-    version = 1)
-@TypeConverters(QuestionTypeTypeConverter::class, ArrayListStringsConverter::class)
-abstract class AllQuestionsDatabase:RoomDatabase() {
-
+@Database(entities = arrayOf(QuizResult::class),version = 1,exportSchema = false)
+@TypeConverters(QuizTypeTypeConverter::class)
+abstract class PassedQuizDatabase:RoomDatabase() {
     companion object{
         @Volatile
-        private var INSTANCE: AllQuestionsDatabase? = null
-        fun getDatabase(context: Context, scope: CoroutineScope): AllQuestionsDatabase{
+        private var INSTANCE: PassedQuizDatabase? = null
+        fun getDatabase(context: Context, scope: CoroutineScope): PassedQuizDatabase{
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -27,8 +23,8 @@ abstract class AllQuestionsDatabase:RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AllQuestionsDatabase::class.java,
-                    "QUESTION"
+                    PassedQuizDatabase::class.java,
+                    "QUIZRESULT"
                 )
                     .build()
                 INSTANCE = instance

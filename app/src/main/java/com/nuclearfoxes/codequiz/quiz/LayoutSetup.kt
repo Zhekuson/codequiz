@@ -1,15 +1,12 @@
 package com.nuclearfoxes.codequiz.quiz
 
 import android.content.Context
-import android.graphics.Color
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.nuclearfoxes.codequiz.R
-import com.nuclearfoxes.data.models.Question
+import com.nuclearfoxes.data.models.question.Question
 
 object LayoutSetup {
     fun setupOpenLayout(question: Question, context: Context, layout: View){
@@ -17,7 +14,7 @@ object LayoutSetup {
         questionTextView.text = question.question
     }
 
-    fun setupSingleLayout(question:Question,context:Context,layout: View){
+    fun setupSingleLayout(question: Question, context:Context, layout: View){
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.question
         var radioGroup = layout.findViewById(R.id.single_choice_radio_group) as RadioGroup
@@ -27,7 +24,7 @@ object LayoutSetup {
             radioGroup.addView(rb)
         }
     }
-    fun setupSingleLayout(question:Question,context:Context,layout: View, userAnswer:String){
+    fun setupSingleLayout(question: Question, context:Context, layout: View, userAnswer:String){
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.question
         var radioGroup = layout.findViewById(R.id.single_choice_radio_group) as RadioGroup
@@ -47,7 +44,7 @@ object LayoutSetup {
         }
     }
 
-    fun setupMultipleLayout(question:Question,context:Context,layout: View){
+    fun setupMultipleLayout(question: Question, context:Context, layout: View){
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.question
         var answersLayout = layout.findViewById(R.id.checkboxes_layout) as LinearLayout
@@ -60,7 +57,7 @@ object LayoutSetup {
         }
 
     }
-    fun setupMultipleLayout(question:Question,context:Context,layout: View, userAnswers:ArrayList<String>){
+    fun setupMultipleLayout(question: Question, context:Context, layout: View, userAnswers:ArrayList<String>){
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.question
         var answersLayout = layout.findViewById(R.id.checkboxes_layout) as LinearLayout
