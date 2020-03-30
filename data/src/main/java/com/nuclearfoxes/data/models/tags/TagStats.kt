@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class TagStats(
     @PrimaryKey var id:String,
     @ColumnInfo var name:String,
-    @ColumnInfo var rateAllTime:Double
-    )
+    @ColumnInfo var rateToday:Double,
+    @ColumnInfo var rateWeek:Double,
+    @ColumnInfo var rateAllTime:Double)

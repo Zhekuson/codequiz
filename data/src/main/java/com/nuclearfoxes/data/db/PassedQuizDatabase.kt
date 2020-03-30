@@ -5,12 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.nuclearfoxes.data.db.converters.DateTimeConverter
 import com.nuclearfoxes.data.db.converters.QuizTypeTypeConverter
 import com.nuclearfoxes.data.models.quiz.QuizResult
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = arrayOf(QuizResult::class),version = 1,exportSchema = false)
-@TypeConverters(QuizTypeTypeConverter::class)
+@Database(entities = arrayOf(QuizResult::class),version = 1,exportSchema = false )
+@TypeConverters(QuizTypeTypeConverter::class, DateTimeConverter::class)
 abstract class PassedQuizDatabase:RoomDatabase() {
     companion object{
         @Volatile
