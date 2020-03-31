@@ -2,5 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <Switch
+        android:id="@+id/theme_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dark Theme"
+        android:textColor="@color/colorTextGray"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:thumb="@drawable/seekbar_thumb"
+        android:layout_margin="@dimen/fab_margin"
+        />
 </LinearLayout>

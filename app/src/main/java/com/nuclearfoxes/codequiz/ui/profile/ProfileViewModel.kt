@@ -1,10 +1,10 @@
-package com.nuclearfoxes.codequiz.ui.share
+package com.nuclearfoxes.codequiz.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ShareViewModel : ViewModel() {
+class ProfileViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is share Fragment"

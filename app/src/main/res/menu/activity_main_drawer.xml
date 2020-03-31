@@ -19,8 +19,8 @@
     </group>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:icon="@drawable/ic_account_box_black_24dp"
+                android:title="@string/profile" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_black_24dp"

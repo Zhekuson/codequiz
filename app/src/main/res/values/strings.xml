@@ -109,4 +109,5 @@
     <string name="exam_mode_description">60 minutes,  40 random questions \n on all themes</string>
     <string name="custom_mode_description">  Customize time, number of questions\n and test themes  </string>
     <string name="all_random_mode_description">10 minutes, 10 questions \n on random themes</string>
+    <string name="profile">Profile</string>
 </resources>
