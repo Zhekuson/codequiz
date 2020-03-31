@@ -1,11 +1,17 @@
-package com.nuclearfoxes.codequiz.quiz
+package com.nuclearfoxes.codequiz.quiz.objects
 
 object TimeConverter {
     fun timeInMsToString(timeMs:Long):String{
         val minutes = timeMs / (1000*60)
         val seconds = timeMs / 1000 % 60
-        var minutesStr:String = timeToStr(minutes)
-        var secondsStr:String = timeToStr(seconds)
+        var minutesStr:String =
+            timeToStr(
+                minutes
+            )
+        var secondsStr:String =
+            timeToStr(
+                seconds
+            )
         return "$minutesStr:$secondsStr"
     }
     private fun timeToStr(time:Long):String{

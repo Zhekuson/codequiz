@@ -106,7 +106,7 @@
     </string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="enter_your_answer_here">Enter your answer here...</string>
-    <string name="exam_mode_description">60 minutes,  40 random questions   on all themes</string>
-    <string name="custom_mode_description">Customize time, number of questions and test themes</string>
-    <string name="all_random_mode_description">10 minutes, 10 questions on random themes</string>
+    <string name="exam_mode_description">60 minutes,  40 random questions \n on all themes</string>
+    <string name="custom_mode_description">  Customize time, number of questions\n and test themes  </string>
+    <string name="all_random_mode_description">10 minutes, 10 questions \n on random themes</string>
 </resources>

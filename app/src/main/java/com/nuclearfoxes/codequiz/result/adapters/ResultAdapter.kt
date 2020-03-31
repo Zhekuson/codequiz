@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.nuclearfoxes.codequiz.R
-import com.nuclearfoxes.codequiz.quiz.LayoutSetup
+import com.nuclearfoxes.codequiz.quiz.objects.LayoutSetup
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
 

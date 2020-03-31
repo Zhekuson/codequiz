@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
+import com.nuclearfoxes.codequiz.quiz.objects.TimeConverter
 import com.nuclearfoxes.codequiz.result.ResultActivity
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
@@ -66,6 +67,7 @@ class QuizActivity : AppCompatActivity() {
 
                 resultIntent.putExtra("QUESTIONS_AND_ANSWERS",questionsAndAnswers)
                 resultIntent.putExtra("RIGHT_ANSWERS_COUNT",rightAnswers)
+                resultIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(resultIntent)
             }
         }

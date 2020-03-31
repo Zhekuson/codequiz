@@ -1,4 +1,4 @@
-package com.nuclearfoxes.codequiz.quiz
+package com.nuclearfoxes.codequiz.quiz.objects
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -22,16 +22,18 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener, ChooseTa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_test)
         this.getSupportActionBar()?.hide()
+        setupAdaptersAndClickListeners()
     }
 
     override fun onStart() {
-        setupAdaptersAndClickListeners()
+
         super.onStart()
     }
     fun setupAdaptersAndClickListeners(){
         go_button.setOnClickListener{
             val intentNext = Intent(this, QuizActivity::class.java)
-            intentNext.putExtra("TIME_MS", 10000L)
+            intentNext.putExtra("TIME_MS", (time_seek_bar_tests.progress+1)*STEP_TIME*60*1000L)
+            intentNext.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intentNext)
         }
         var ld = ArrayList<String>()

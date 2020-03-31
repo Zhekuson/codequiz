@@ -12,8 +12,9 @@ import android.widget.RadioGroup
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.nuclearfoxes.codequiz.R
-import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupOpenLayout
-import com.nuclearfoxes.codequiz.quiz.LayoutSetup.setupSingleLayout
+import com.nuclearfoxes.codequiz.quiz.objects.LayoutSetup
+import com.nuclearfoxes.codequiz.quiz.objects.LayoutSetup.setupOpenLayout
+import com.nuclearfoxes.codequiz.quiz.objects.LayoutSetup.setupSingleLayout
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
 import kotlinx.android.synthetic.main.multiple_choice_question_layout.*
