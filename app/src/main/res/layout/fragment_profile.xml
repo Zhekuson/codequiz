@@ -35,12 +35,11 @@
             app:layout_constraintTop_toTopOf="parent" />
         <EditText
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_text_label"
             android:id="@+id/email_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:gravity="center_vertical"
             android:text="example_example@gmail.com"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -54,5 +53,15 @@
         android:text="Change email"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_layout" />
-    
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:buttonSize="wide"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_email_button"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
