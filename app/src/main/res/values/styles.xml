@@ -68,6 +68,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">@dimen/default_margin</item>
     </style>
+
     <style name="QuestionTextTheme">
         <item name="android:layout_margin">@dimen/default_margin</item>
         <item name="android:textAllCaps">false</item>
@@ -77,15 +78,27 @@
     </style>
 
     <style name="CheckBoxesTheme">
-        <item name="android:layout_marginLeft"> @dimen/fab_margin</item>
+        <item name="android:layout_marginLeft">@dimen/fab_margin</item>
         <item name="android:layout_marginRight">@dimen/fab_margin</item>
         <item name="android:layout_marginBottom">@dimen/default_margin</item>
-        <item name= "android:layout_marginTop">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
     </style>
 
     <style name="TextViewTestsFragmentStyle">
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:layout_margin">@dimen/fab_margin</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
     </style>
 </resources>

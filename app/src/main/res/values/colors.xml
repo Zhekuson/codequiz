@@ -22,4 +22,6 @@
     <color name="colorMainGrayDark">#C4C4C4</color>
 
     <color name="colorTextGray">#C0C0C0</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

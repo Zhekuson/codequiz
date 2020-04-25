@@ -9,7 +9,19 @@
         android:roundIcon="@drawable/main_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.tests.CustomTestActivity"></activity>
+        <activity android:name=".registration.RegistrationActivity"></activity>
+        <activity
+            android:name=".startup.LauncherActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_launcher"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.tests.CustomTestActivity" />
         <activity android:name=".result.ResultActivity" />
         <activity
             android:name=".quiz.QuizActivity"
