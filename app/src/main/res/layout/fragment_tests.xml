@@ -102,5 +102,45 @@
                     style="@style/TextViewTestsStyle"
                     />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/quiz_by_id_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/custom_test_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/quiz_by_id_text_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Or you can"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:textAlignment="center"
+                    style="@style/TextViewTestsStyle"
+                    />
+                <EditText
+                    android:id="@+id/quiz_id_edit_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/quiz_by_id_text_label"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/quiz_by_id_button"
+                    app:layout_constraintTop_toBottomOf="@id/quiz_id_edit_text"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Get quiz by ID"
+                    android:layout_margin="@dimen/fab_margin"
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
