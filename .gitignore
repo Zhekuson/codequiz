@@ -12,6 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+Config.kt
 # Built application files
 *.apk
 *.aar
