@@ -114,4 +114,7 @@
     <string name="title_activity_launcher">LauncherActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="submit">Submit</string>
+    <string name="your_verification_code">Your verification code...</string>
+    <string name="input_verification_code_here">Input verification code here:</string>
 </resources>

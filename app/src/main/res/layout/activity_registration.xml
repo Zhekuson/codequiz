@@ -5,5 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".registration.RegistrationActivity">
+    <TextView
+        android:id="@+id/welcome_text_label"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="Welcome to codequiz!"
+        style="@style/RegistrationTextViewStyle"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/email_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/welcome_text_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:hint="Input your email here"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/verify_email_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_edit_text"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send verification code"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
