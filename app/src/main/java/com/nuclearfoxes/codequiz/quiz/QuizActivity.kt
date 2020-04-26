@@ -31,7 +31,6 @@ class QuizActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                //TODO add start activity
                 var resultIntent = Intent(this@QuizActivity,ResultActivity::class.java)
                 var rightAnswers:Int = 0
                 var questionsAndAnswers = ArrayList<Pair<Question,ArrayList<String>>>()
