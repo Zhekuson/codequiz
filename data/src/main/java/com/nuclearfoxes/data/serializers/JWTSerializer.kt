@@ -8,6 +8,6 @@ import com.nuclearfoxes.data.models.user.JWTWrapper
 object JWTSerializer {
     var objectMapper = jacksonObjectMapper()
     fun deserializeJWT(jsonString: String): String{
-        return objectMapper.readValue<JWTWrapper>(jsonString).result
+            return objectMapper.readValue<JWTWrapper>(jsonString).result
     }
 }

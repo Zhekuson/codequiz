@@ -13,4 +13,7 @@ object QuizAttemptSerializer {
     fun deserializeQuizAttempt(jsonString: String): QuizAttempt {
         return objectMapper.readValue<QuizAttempt>(jsonString)
     }
+    fun deserializeQuizAttemptsList(jsonString: String): ArrayList<QuizAttempt> {
+        return objectMapper.readValue<ArrayList<QuizAttempt>>(jsonString)
+    }
 }
