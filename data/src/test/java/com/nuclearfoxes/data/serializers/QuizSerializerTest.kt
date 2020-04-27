@@ -12,14 +12,14 @@ internal class QuizSerializerTest {
     @Test
     fun serializeQuizTest() {
         var questions = ArrayList<Question>()
-        var quiz:Quiz = Quiz(1,QuizType.CUSTOM.value,questions)
+        var quiz:Quiz = Quiz(1,QuizType.CUSTOM.value,questions, 1)
         var result = QuizSerializer.serializeQuiz(quiz)
     }
 
     @Test
     fun deserializeQuiz() {
         var questions = ArrayList<Question>()
-        var quiz:Quiz = Quiz(1,QuizType.CUSTOM.value,questions)
+        var quiz:Quiz = Quiz(1,QuizType.CUSTOM.value,questions, 1)
         var result = QuizSerializer.serializeQuiz(quiz)
         var resQuiz = QuizSerializer.deserializeQuiz(result)
     }

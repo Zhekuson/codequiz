@@ -1,4 +1,4 @@
-package com.nuclearfoxes.codequiz.ui.tests
+package com.nuclearfoxes.codequiz.ui.tests.custom
 
 import android.app.Dialog
 import android.content.Context

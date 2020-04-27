@@ -1,20 +1,23 @@
-package com.nuclearfoxes.codequiz.ui.tests
+package com.nuclearfoxes.codequiz.ui.tests.custom
 
-import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
-import androidx.appcompat.app.AlertDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.QuizActivity
 import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
 import com.nuclearfoxes.codequiz.ui.tests.adapters.CloseIconClickListener
+import com.nuclearfoxes.codequiz.ui.tests.loading.QuizLoadingActivity
 import kotlinx.android.synthetic.main.activity_custom_test.*
 
-class CustomTestActivity : AppCompatActivity(), CloseIconClickListener, ChooseTagFragment.ConfirmationListener {
+class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
+    ChooseTagFragment.ConfirmationListener {
+    var MAX_QUESTIONS_COUNT = 40
+    var MIN_QUESTIONS_COUNT = 1
+    val STEP_QUESTIONS = 1
     val MAX_TIME:Int = 60
     val MIN_TIME:Int = 1
     val STEP_TIME = 1
@@ -24,16 +27,12 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener, ChooseTa
         this.getSupportActionBar()?.hide()
         setupAdaptersAndClickListeners()
     }
-
-    override fun onStart() {
-
-        super.onStart()
-    }
     fun setupAdaptersAndClickListeners(){
         go_button.setOnClickListener{
-            val intentNext = Intent(this, QuizActivity::class.java)
-            intentNext.putExtra("TIME_MS", (time_seek_bar_tests.progress+1)*STEP_TIME*60*1000L)
-            intentNext.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intentNext = Intent(this, QuizLoadingActivity::class.java)
+            intentNext.putExtra("MODE", "CUSTOM")
+            intentNext.putExtra("MINUTES", time_seek_bar_tests.progress+1)
+            intentNext.putExtra("QUESTIONS_COUNT", question_count_seek_bar.progress+1)
             startActivity(intentNext)
         }
         var ld = ArrayList<String>()
@@ -44,6 +43,14 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener, ChooseTa
         time_seek_bar_tests.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 time_textView.text = (MIN_TIME + progress*STEP_TIME).toString() + " min"
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        question_count_seek_bar.max = (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT)/STEP_QUESTIONS
+        question_count_seek_bar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                questions_count_textView.text = (MIN_QUESTIONS_COUNT + progress*STEP_QUESTIONS).toString() + " questions"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}

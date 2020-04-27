@@ -10,12 +10,16 @@ internal class UserRequestsTest {
 
     @Test
     fun sendVerificationEmail() {
-        var sessionId = UserRequests.sendVerificationEmail("zhekuson@gmail.com")
+       // var sessionId = UserRequests.sendVerificationEmail("zhekuson@gmail.com")
         try {
-            UserRequests.verifyEmail(sessionId, 2342343, "zhekuson@gmail.com")
+            UserRequests.verifyEmail(26, 84287, "zhekuson@gmail.com")
         }catch (e:VerificationException){
 
         }
 
+    }
+
+    @Test
+    fun verifyEmail() {
     }
 }
