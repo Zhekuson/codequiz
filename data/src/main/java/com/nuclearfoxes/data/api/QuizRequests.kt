@@ -15,7 +15,7 @@ object QuizRequests {
     fun getExamQuiz(JWT:String):Quiz{
         val request= Request.Builder()
             .get()
-            .addHeader("Bearer", JWT)
+            .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/exam").build()
         var response = UserRequests.httpClient.newCall(request).execute()
         if(response.code() == 401){
@@ -29,7 +29,7 @@ object QuizRequests {
     fun getRandomQuiz(JWT:String):Quiz{
         val request= Request.Builder()
             .get()
-            .addHeader("Bearer", JWT)
+            .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/random").build()
         var response = UserRequests.httpClient.newCall(request).execute()
         if(response.code() == 401){
@@ -46,7 +46,7 @@ object QuizRequests {
                 RequestBody.create(
                 MediaType.parse(Config.contentType),
                 TagSerializer.serializeTagList(tags)))
-            .addHeader("Bearer", JWT)
+            .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/custom?questionsCount=" +
                     "${questionsCount}&minutesCount${minutesCount}").build()
         var response = UserRequests.httpClient.newCall(request).execute()
@@ -61,7 +61,7 @@ object QuizRequests {
     fun getQuizById(JWT:String, id:Int):Quiz{
         val request= Request.Builder()
             .get()
-            .addHeader("Bearer", JWT)
+            .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/${id}").build()
         var response = UserRequests.httpClient.newCall(request).execute()
         if(response.code() == 401){

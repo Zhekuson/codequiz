@@ -2,8 +2,9 @@ package com.nuclearfoxes.data.models.answers
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.nuclearfoxes.data.models.question.Question
+import java.io.Serializable
 
-class Answer(@JsonProperty("Id")var id:Int,
-             @JsonProperty("AnswerText")var answerText:String,
-             @JsonProperty("IsRight")var isRight:Boolean,
-             @JsonProperty("QuestionId")var questionId:Int)
+class Answer(@JsonProperty("id")var id:Int?,
+             @JsonProperty("answerText")var answerText:String?,
+             @JsonProperty("isRight")var isRight:Boolean?,
+             @JsonProperty("questionId")var questionId:Int?):Serializable

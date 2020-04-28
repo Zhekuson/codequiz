@@ -12,6 +12,7 @@ import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.tags.Tag
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class QuizLoadingActivity : AppCompatActivity() {
 
@@ -29,36 +30,42 @@ class QuizLoadingActivity : AppCompatActivity() {
     fun getMode(){
         var mode = intent.getStringExtra("MODE")
         var intentNext = Intent(this, QuizActivity::class.java)
-        val quiz:Quiz
-        when(mode){
-            "CUSTOM" ->{
-                val minutesCount = intent.getIntExtra("MINUTES", 1)
-                val questionsCount = intent.getIntExtra("QUESTIONS_COUNT", 1)
-                val tags :ArrayList<Tag> = intent.getSerializableExtra("TAGS") as ArrayList<Tag>
-                quiz = QuizRequests.getCustomQuiz(sharedPreferences.getString("JWT","-")!!,
-                    tags,questionsCount, minutesCount)
-                intentNext.putExtra("TIME_MS", quiz.minutes*60000L)
-            }
-            "RANDOM" ->{
+        var quiz:Quiz
+        GlobalScope.launch {
+            when (mode) {
+                "CUSTOM" -> {
+                    val minutesCount = intent.getIntExtra("MINUTES", 1)
+                    val questionsCount = intent.getIntExtra("QUESTIONS_COUNT", 1)
+                    val tags: ArrayList<Tag> = intent.getSerializableExtra("TAGS") as ArrayList<Tag>
+                    quiz = QuizRequests.getCustomQuiz(
+                        sharedPreferences.getString("JWT", "-")!!,
+                        tags, questionsCount, minutesCount
+                    )
+                    intentNext.putExtra("TIME_MS", quiz.minutes * 60000L)
+                }
+                "RANDOM" -> {
 
-                intentNext.putExtra("TIME_MS", 600000L)
-                quiz = QuizRequests.getRandomQuiz(sharedPreferences.getString("JWT","-")!!)
+                    intentNext.putExtra("TIME_MS", 600000L)
+                    quiz = QuizRequests.getRandomQuiz(sharedPreferences.getString("JWT", "-")!!)
+                }
+                "EXAM" -> {
+                    intentNext.putExtra("TIME_MS", 3600000L)
+                    quiz = QuizRequests.getExamQuiz(sharedPreferences.getString("JWT", "-")!!)
+                }
+                "BY_ID" -> {
+                    quiz = QuizRequests.getQuizById(
+                        sharedPreferences.getString("JWT", "-")!!,
+                        intent.getIntExtra("ID", 1)
+                    )
+                    intentNext.putExtra("TIME_MS", quiz.minutes * 60000L)
+                }
+                else -> {
+                    throw UnableStartQuizException()
+                }
             }
-            "EXAM"->{
-                intentNext.putExtra("TIME_MS", 3600000L)
-                quiz = QuizRequests.getExamQuiz(sharedPreferences.getString("JWT","-")!!)
-            }
-            "BY_ID"->{
-                quiz = QuizRequests.getQuizById(sharedPreferences.getString("JWT","-")!!,
-                    intent.getIntExtra("ID", 1))
-                intentNext.putExtra("TIME_MS", quiz.minutes*60000L)
-            }
-            else->{
-                throw UnableStartQuizException()
-            }
+            intentNext.putExtra("QUIZ", quiz)
+            startActivity(intentNext)
         }
-        intentNext.putExtra("QUIZ",quiz)
-        startActivity(intentNext)
     }
 
 }

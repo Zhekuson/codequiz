@@ -45,7 +45,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             style="@style/TestSeekBar"
-            android:progress="1"
+            android:progress="0"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -85,7 +85,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
             android:layout_marginTop="@dimen/tests_page_top_margin"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"

@@ -38,6 +38,11 @@ class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<St
                     layout,questionsAndAnswers[position].second[0])
                 return layout
             }
+            else ->{
+                var layout = inflater.inflate(R.layout.open_question_layout, null)
+                LayoutSetup.setupOpenLayout(questionsAndAnswers[position].first,mContext,layout)
+                return layout
+            }
         }
         return convertedView!!
     }

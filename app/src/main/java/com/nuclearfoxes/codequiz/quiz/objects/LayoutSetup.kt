@@ -18,7 +18,7 @@ object LayoutSetup {
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.questionText
         var radioGroup = layout.findViewById(R.id.single_choice_radio_group) as RadioGroup
-        for (answer in question.answers) {
+        for (answer in question.answers!!) {
             var rb =  MaterialRadioButton(context!!)
             rb.text = answer.answerText
             radioGroup.addView(rb)
@@ -29,7 +29,7 @@ object LayoutSetup {
         questionTextView.text = question.questionText
         var radioGroup = layout.findViewById(R.id.single_choice_radio_group) as RadioGroup
         //radioGroup.setBackgroundColor(context.getColor(R.color.colorAccent))
-        for (answer in question.answers) {
+        for (answer in question.answers!!) {
             var rb =  MaterialRadioButton(context!!)
             rb.isClickable = false
            // if(answer == userAnswer){
@@ -49,7 +49,7 @@ object LayoutSetup {
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.questionText
         var answersLayout = layout.findViewById(R.id.checkboxes_layout) as LinearLayout
-        for (answer in question.answers) {
+        for (answer in question.answers!!) {
             val inflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             var cb = inflater.inflate(R.layout.single_checkbox_layout, null) as CheckBox
@@ -63,7 +63,7 @@ object LayoutSetup {
         var questionTextView= layout.findViewById(R.id.question_text_textView) as TextView
         questionTextView.text = question.questionText
         var answersLayout = layout.findViewById(R.id.checkboxes_layout) as LinearLayout
-        for (answer in question.answers) {
+        for (answer in question.answers!!) {
             val inflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             var cb = inflater.inflate(R.layout.single_checkbox_layout, null) as CheckBox

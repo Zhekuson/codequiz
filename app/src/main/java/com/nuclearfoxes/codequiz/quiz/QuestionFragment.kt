@@ -58,6 +58,12 @@ class QuestionFragment(val question: Question):Fragment() {
                  setupSingleLayout(question,context!!,layout)
                  return layout
              }
+            else -> {
+                var layout =inflater.inflate(
+                    R.layout.multiple_choice_question_layout,
+                    container, false)
+                return layout
+            }
         }
 
         return root
@@ -86,7 +92,6 @@ class QuestionFragment(val question: Question):Fragment() {
                 for(child in checkboxes_layout.children){
                     child.setOnClickListener {
                         storeData()
-                        //it.visibility = View.INVISIBLE
                     }
                 }
 
@@ -103,8 +108,6 @@ class QuestionFragment(val question: Question):Fragment() {
                         break
                     }
                 }
-
-
             }
             QuestionType.OPEN->{
                 savedInfo.putString("ANSWER", open_question_edit_text.text.toString())

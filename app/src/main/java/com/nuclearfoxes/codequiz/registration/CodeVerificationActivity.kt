@@ -6,12 +6,15 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.edit
 import com.nuclearfoxes.codequiz.MainActivity
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.data.api.UserRequests
 import com.nuclearfoxes.data.exceptions.VerificationException
 import kotlinx.android.synthetic.main.activity_code_verification.*
+import kotlinx.android.synthetic.main.activity_registration.*
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -19,16 +22,23 @@ import java.lang.Exception
 class CodeVerificationActivity : AppCompatActivity() {
 
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var coroutineExceptionHandler:CoroutineExceptionHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_code_verification)
         sharedPreferences = this.getSharedPreferences("MAIN",Context.MODE_PRIVATE)
+         coroutineExceptionHandler =
+            CoroutineExceptionHandler { _,t->
+                Toast.makeText(this@CodeVerificationActivity,"Error happened, try again",
+                    Toast.LENGTH_LONG).show()
+                code_verification_progress_bar.visibility = View.INVISIBLE
+            }
         setupClickListeners()
     }
     fun setupClickListeners(){
         submit_button.setOnClickListener {
             try {
-                GlobalScope.launch {
+                GlobalScope.launch(coroutineExceptionHandler) {
                     code_verification_progress_bar.visibility = View.VISIBLE
                     var JWT = UserRequests.verifyEmail(
                         intent.getIntExtra("SESSIONID", 0),

@@ -10,12 +10,13 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.lang.Exception
+import java.net.SocketTimeoutException
 
 object StatsRequests {
-    fun GetAllQuizAttempts(email:String, JWT:String):ArrayList<QuizAttempt>{
+    fun getAllQuizAttempts(email:String, JWT:String):ArrayList<QuizAttempt>{
         val request= Request.Builder()
-            .get().addHeader("Bearer", JWT)
-            .url(Config.apiAddress+"stats?email=${email}").build()
+            .get().addHeader("Authorization","Bearer "+ JWT)
+            .url(Config.apiAddress+"stats/?email=${email}").build()
         var response = UserRequests.httpClient.newCall(request).execute()
         if (response.code() == 401){
             throw UnauthorizedException()
@@ -34,11 +35,16 @@ object StatsRequests {
             .put(RequestBody.create(
                 MediaType.parse(Config.contentType),
                 QuizAttemptSerializer.serializeQuizAttempt(quizAttempt)))
-            .addHeader("Bearer", JWT)
+            .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/answer").build()
-        var response = UserRequests.httpClient.newCall(request).execute()
-        if(response.code() != 200){
-            throw InternalServerErrorException()
+        try {
+            var response = UserRequests.httpClient.newCall(request).execute()
+            if(response.code() == 500){
+                throw InternalServerErrorException()
+            }
+        }catch (e:SocketTimeoutException){
+
         }
+
     }
 }

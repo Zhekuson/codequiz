@@ -117,4 +117,5 @@
     <string name="submit">Submit</string>
     <string name="your_verification_code">Your verification code...</string>
     <string name="input_verification_code_here">Input verification code here:</string>
+    <string name="finish_quiz">Do you want to finish quiz?</string>
 </resources>

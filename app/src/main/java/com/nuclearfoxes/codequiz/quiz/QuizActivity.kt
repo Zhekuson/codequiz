@@ -1,6 +1,7 @@
 package com.nuclearfoxes.codequiz.quiz
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Window
@@ -10,38 +11,83 @@ import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
 import com.nuclearfoxes.codequiz.quiz.objects.TimeConverter
 import com.nuclearfoxes.codequiz.result.ResultActivity
+import com.nuclearfoxes.data.models.answers.UserQuizAnswer
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
+import com.nuclearfoxes.data.models.quiz.Quiz
+import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
 import kotlinx.android.synthetic.main.activity_quiz.*
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.collections.ArrayList
 
-class QuizActivity : AppCompatActivity() {
-    lateinit var questions: ArrayList<Question>
+class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListener{
     lateinit var mAdapter: QuestionFragmentPagerAdapter
+    lateinit var quiz: Quiz
+    lateinit var quizAttempt: QuizAttempt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
         setContentView(R.layout.activity_quiz)
-
-        //questions = intent.getSerializableExtra("QUESTIONS") as ArrayList<Question>
+        quiz = intent.getSerializableExtra("QUIZ") as Quiz
+        quizAttempt = QuizAttempt(0,quiz,0, Date(),Date(),null)
         val timer = object: CountDownTimer(intent.getLongExtra("TIME_MS", 300000), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 time_textView.text = TimeConverter.timeInMsToString(millisUntilFinished)
             }
-
             override fun onFinish() {
+               finishQuiz()
             }
         }
         timer.start()
+        finish_attempt_button.setOnClickListener {
+            ConfirmFinishFragment().show(supportFragmentManager,"TAG")
+        }
     }
 
+    fun finishQuiz(){
+        quizAttempt.userQuizAnswer = UserQuizAnswer(ArrayList())
+        for (fragment in mAdapter.fragments){
+            val qFragment = fragment as QuestionFragment
+            when(qFragment.question.type){
+                QuestionType.MULTIPLE_CHOICE->{
+                    var bools = qFragment.savedInfo.getBooleanArray("ANSWER")
+                    if(bools!=null) {
+                        for (i in 0 until bools.size) {
+                            if (bools[i]) {
+                                quizAttempt.userQuizAnswer!!.userAnswers!!
+                                    .add(qFragment.question.answers!![i])
+                            }
+                        }
+                    }
+                }
+                QuestionType.OPEN->{
 
+                    if(qFragment.question.answers!![0].answerText ==
+                        qFragment.savedInfo.getString("ANSWER","?")){
+                        quizAttempt.userQuizAnswer!!.userAnswers!!.add(qFragment.question.answers!![0])
+                    }
+                }
+                QuestionType.SINGLE_CHOICE->{
+                    for (answer in qFragment.question.answers!!) {
+                        if (qFragment.savedInfo.getString("ANSWER")
+                            == answer.answerText){
+                            quizAttempt.userQuizAnswer!!.userAnswers!!.add(answer)
+                            break
+                        }
+                    }
+                }
+                QuestionType.NONE->{}
+            }
+        }
+        quizAttempt.endDateTime = Date()
+    }
     override fun onStart() {
 
         setupAdapters()
-
-        //time_textView.text = timer.
         super.onStart()
     }
     fun setFullScreenWindow(){
@@ -51,6 +97,16 @@ class QuizActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
     fun setupAdapters(){
+        mAdapter = QuestionFragmentPagerAdapter(this,
+            supportFragmentManager,quiz.questions!!)
+        question_view_pager.adapter = mAdapter
+    }
 
+    override fun confirmButtonClicked() {
+        finishQuiz()
+    }
+
+    override fun cancelButtonClicked() {
+        //do nothing
     }
 }

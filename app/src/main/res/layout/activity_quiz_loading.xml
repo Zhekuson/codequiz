@@ -5,5 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tests.loading.QuizLoadingActivity">
-
+    <ProgressBar
+        android:id="@+id/quiz_loading_progress_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        />
+    <TextView
+        android:id="@+id/quiz_loading_text_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/quiz_loading_progress_bar"
+        android:text="Please wait, your quiz is loading..."
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="@dimen/fab_margin"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

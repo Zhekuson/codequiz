@@ -11,6 +11,7 @@ import com.nuclearfoxes.codequiz.quiz.QuizActivity
 import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
 import com.nuclearfoxes.codequiz.ui.tests.adapters.CloseIconClickListener
 import com.nuclearfoxes.codequiz.ui.tests.loading.QuizLoadingActivity
+import com.nuclearfoxes.data.models.tags.Tag
 import kotlinx.android.synthetic.main.activity_custom_test.*
 
 class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
@@ -35,9 +36,9 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
             intentNext.putExtra("QUESTIONS_COUNT", question_count_seek_bar.progress+1)
             startActivity(intentNext)
         }
-        var ld = ArrayList<String>()
-        ld.add("Callbacks")
-        ld.add("Events")
+        var ld = ArrayList<Tag>()
+        ld.add(Tag(1,"Callbacks"))
+        ld.add(Tag(2,"Events"))
         ChipGroupCustomAdapter(this!!,findViewById(R.id.chip_group_test_tags),ld,this)
         time_seek_bar_tests.max = (MAX_TIME - MIN_TIME)/STEP_TIME
         time_seek_bar_tests.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
@@ -55,8 +56,11 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+        var tags = ArrayList<Pair<Tag,Boolean>>()
+        tags.add(Pair(ld[0],false))
+        tags.add(Pair(ld[1],true))
         add_tag_chip.setOnClickListener {
-            ChooseTagFragment().show(supportFragmentManager,"TAG")
+            ChooseTagFragment(tags).show(supportFragmentManager,"TAG")
         }
     }
 

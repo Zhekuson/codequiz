@@ -11,15 +11,16 @@ import androidx.appcompat.widget.TintTypedArray.obtainStyledAttributes
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.data.models.tags.Tag
 import java.util.zip.Inflater
 
 
 object ChipFactory {
-    fun getChip(mContext: Context,tag: String, closeIconClickListener:CloseIconClickListener): Chip{
+    fun getChip(mContext: Context, tag: Tag, closeIconClickListener:CloseIconClickListener): Chip{
         val inflater =
             mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var chip = inflater.inflate(R.layout.single_chip_layout, null) as Chip
-        chip.text = tag
+        chip.text = tag.name
         chip.setOnCloseIconClickListener{
             closeIconClickListener.onClose(it as Chip)
         }
