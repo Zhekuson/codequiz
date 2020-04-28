@@ -9,9 +9,10 @@ import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.objects.LayoutSetup
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
+import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
 
-class ResultAdapter(var questionsAndAnswers:ArrayList<Pair<Question,ArrayList<String>>>,
+class ResultAdapter(var quizAttempt:QuizAttempt,
                     var mContext:Context)
     :BaseAdapter(){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

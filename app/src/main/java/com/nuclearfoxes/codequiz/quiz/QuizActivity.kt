@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.ViewParent
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
 import com.nuclearfoxes.codequiz.quiz.objects.TimeConverter
@@ -18,13 +20,14 @@ import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
 import kotlinx.android.synthetic.main.activity_quiz.*
+import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListener{
+class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListener, ViewPager.OnPageChangeListener{
     lateinit var mAdapter: QuestionFragmentPagerAdapter
     lateinit var quiz: Quiz
     lateinit var quizAttempt: QuizAttempt
@@ -42,6 +45,8 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
                finishQuiz()
             }
         }
+        question_id_textView.text = "#${quiz.questions!![0].id}"
+        question_number_text_view.text = "${1}/${quiz.questions!!.size}"
         timer.start()
         finish_attempt_button.setOnClickListener {
             ConfirmFinishFragment().show(supportFragmentManager,"TAG")
@@ -65,18 +70,23 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
                     }
                 }
                 QuestionType.OPEN->{
-
-                    if(qFragment.question.answers!![0].answerText ==
-                        qFragment.savedInfo.getString("ANSWER","?")){
+                if(qFragment.question.answers != null) {
+                    if (qFragment.question.answers!![0].answerText ==
+                        qFragment.savedInfo.getString("ANSWER", "?")
+                    ) {
                         quizAttempt.userQuizAnswer!!.userAnswers!!.add(qFragment.question.answers!![0])
                     }
                 }
+                }
                 QuestionType.SINGLE_CHOICE->{
-                    for (answer in qFragment.question.answers!!) {
-                        if (qFragment.savedInfo.getString("ANSWER")
-                            == answer.answerText){
-                            quizAttempt.userQuizAnswer!!.userAnswers!!.add(answer)
-                            break
+                    if(qFragment.question.answers != null) {
+                        for (answer in qFragment.question.answers!!) {
+                            if (qFragment.savedInfo.getString("ANSWER")
+                                == answer.answerText
+                            ) {
+                                quizAttempt.userQuizAnswer!!.userAnswers!!.add(answer)
+                                break
+                            }
                         }
                     }
                 }
@@ -84,6 +94,9 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
             }
         }
         quizAttempt.endDateTime = Date()
+        var resultIntent = Intent(this, ResultActivity::class.java)
+        resultIntent.putExtra("QUIZ_ATTEMPT",quizAttempt as Serializable)
+        startActivity(resultIntent)
     }
     override fun onStart() {
 
@@ -100,6 +113,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         mAdapter = QuestionFragmentPagerAdapter(this,
             supportFragmentManager,quiz.questions!!)
         question_view_pager.adapter = mAdapter
+        question_view_pager.addOnPageChangeListener(this)
     }
 
     override fun confirmButtonClicked() {
@@ -108,5 +122,18 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
 
     override fun cancelButtonClicked() {
         //do nothing
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+        question_id_textView.text = "#${quiz.questions!![position].id}"
+        question_number_text_view.text = "${position + 1}/${quiz.questions!!.size}"
     }
 }

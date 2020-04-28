@@ -7,6 +7,8 @@ import com.nuclearfoxes.codequiz.MainActivity
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.result.adapters.ResultAdapter
 import com.nuclearfoxes.data.models.question.Question
+import com.nuclearfoxes.data.models.quiz.Quiz
+import com.nuclearfoxes.data.models.quiz.QuizAttempt
 import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {
@@ -18,9 +20,8 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        var results = intent
-            .getSerializableExtra("QUESTIONS_AND_ANSWERS")
-                as ArrayList<Pair<Question,ArrayList<String>>>
+        var results:QuizAttempt = intent
+            .getSerializableExtra("QUIZ_ATTEMPT") as QuizAttempt
         result_list_view.adapter = ResultAdapter(results,this)
         skip_results_button.setOnClickListener {
             var resultIntent = Intent(this,MainActivity::class.java)
