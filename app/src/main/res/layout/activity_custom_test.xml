@@ -114,7 +114,7 @@
         android:layout_marginStart="20dp"
 
         >
-        <com.google.android.material.chip.Chip
+        <!--<com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Interfaces"
@@ -122,7 +122,7 @@
             app:closeIcon="@drawable/ic_close_white_24dp"
             app:closeIconEnabled="true"
             style="@style/ThemeChipStyle"
-            />
+            />-->
         <com.google.android.material.chip.Chip
             android:id="@+id/add_tag_chip"
             android:layout_width="wrap_content"

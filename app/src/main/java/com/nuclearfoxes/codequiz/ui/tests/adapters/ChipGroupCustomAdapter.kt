@@ -5,22 +5,20 @@ import android.view.LayoutInflater
 import androidx.lifecycle.LiveData
 import com.google.android.material.chip.ChipGroup
 import com.nuclearfoxes.data.models.tags.Tag
+import com.nuclearfoxes.data.models.tags.TagCountPair
 
 class ChipGroupCustomAdapter(var mContext:Context, var chipGroup: ChipGroup,
-                             var tags:ArrayList<Tag>, closeIconClickListener: CloseIconClickListener) {
+                             var tags:ArrayList<TagCountPair>, var closeIconClickListener: CloseIconClickListener) {
     init {
-        for (tag in tags){
-            chipGroup.addView(ChipFactory.getChip(mContext, tag, closeIconClickListener))
+        for (tagCountPair in tags){
+            chipGroup.addView(ChipFactory.getChip(mContext,
+                tagCountPair.tag, closeIconClickListener))
         }
     }
-    fun updateChipGroup(){
-        //chipGroup.removeAllViews()
-
+    fun removeAllExceptAdd(){
+        chipGroup.removeViews(1,chipGroup.childCount-1)
     }
-    fun removeChip(){
-
-    }
-    fun addChip(){
-
+    fun addChip(tagCountPair: TagCountPair){
+        chipGroup.addView(ChipFactory.getChip(mContext, tagCountPair.tag, closeIconClickListener))
     }
 }

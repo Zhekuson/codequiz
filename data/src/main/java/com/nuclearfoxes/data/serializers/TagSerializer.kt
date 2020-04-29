@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.tags.Tag
+import com.nuclearfoxes.data.models.tags.TagCountPair
 
 object TagSerializer {
     var objectMapper = jacksonObjectMapper()
@@ -15,5 +16,8 @@ object TagSerializer {
     }
     fun deserializeTagList(jsonString: String): ArrayList<Tag>{
         return objectMapper.readValue<ArrayList<Tag>>(jsonString)
+    }
+    fun deserializeTagCountPairs(jsonString: String):ArrayList<TagCountPair>{
+        return objectMapper.readValue(jsonString)
     }
 }

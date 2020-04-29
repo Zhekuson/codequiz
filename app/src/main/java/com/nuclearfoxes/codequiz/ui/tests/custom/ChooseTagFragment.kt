@@ -7,8 +7,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.nuclearfoxes.data.models.tags.Tag
+import com.nuclearfoxes.data.models.tags.TagCountPair
 
-class ChooseTagFragment(var tags:ArrayList<Pair<Tag,Boolean>>) : DialogFragment(), DialogInterface.OnMultiChoiceClickListener {
+class ChooseTagFragment(var tags:ArrayList<Pair<TagCountPair,Boolean>>) : DialogFragment(), DialogInterface.OnMultiChoiceClickListener {
 
     interface ConfirmationListener {
         fun confirmButtonClicked()
@@ -31,15 +32,15 @@ class ChooseTagFragment(var tags:ArrayList<Pair<Tag,Boolean>>) : DialogFragment(
         var names :Array<String> = Array(tags.size){i->""}
         for (i in 0 until tags.size) {
             isChosen[i] = tags[i].second
-            names[i] = tags[i].first.name!!
+            names[i] = tags[i].first.tag.name!!+" ("+tags[i].first.count+")"
         }
         return AlertDialog.Builder(context!!)
             .setMultiChoiceItems(names,isChosen,this)
             .setTitle("Pick themes")
-/*            .setPositiveButton("Confirm") { _, _ ->
+            .setPositiveButton("Confirm") { _, _ ->
                 listener.confirmButtonClicked()
             }
-            .setNegativeButton("Cancel") { _, _ ->
+            /*.setNegativeButton("Cancel") { _, _ ->
                 listener.cancelButtonClicked()
             }*/
             .create()
