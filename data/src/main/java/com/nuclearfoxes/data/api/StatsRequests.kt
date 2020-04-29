@@ -31,12 +31,13 @@ object StatsRequests {
         }
     }
     fun putQuizAttempt(quizAttempt: QuizAttempt, email:String, JWT:String) {
+        var body = QuizAttemptSerializer.serializeQuizAttempt(quizAttempt)
         val request= Request.Builder()
-            .put(RequestBody.create(
-                MediaType.parse(Config.contentType),
-                QuizAttemptSerializer.serializeQuizAttempt(quizAttempt)))
+            .post(RequestBody.create(
+                MediaType.parse(Config.contentType),body
+                ))
             .addHeader("Authorization","Bearer "+ JWT)
-            .url(Config.apiAddress+"quiz/answer").build()
+            .url(Config.apiAddress+"quiz/answer?email=${email}").build()
         try {
             var response = UserRequests.httpClient.newCall(request).execute()
             if(response.code() == 500){

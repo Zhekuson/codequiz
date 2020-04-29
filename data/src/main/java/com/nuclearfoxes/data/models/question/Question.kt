@@ -12,9 +12,9 @@ import java.io.Serializable
 
 
 public data class Question(
-    @JsonProperty("id")var id:String?,
+    @JsonProperty("id")var id:Int?,
     @JsonProperty("questionText")var questionText: String?,
-    @JsonProperty("type")var type: QuestionType?,
+    @JsonProperty("type")var type: Int?,
     @JsonProperty("tags")var tags: ArrayList<Tag>?,
     @JsonProperty("answers")var answers:ArrayList<Answer>?
 ):Serializable

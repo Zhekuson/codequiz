@@ -1,6 +1,7 @@
 package com.nuclearfoxes.data.api
 
 import com.nuclearfoxes.data.exceptions.InternalServerErrorException
+import com.nuclearfoxes.data.exceptions.QuizNotFoundException
 import com.nuclearfoxes.data.exceptions.UnauthorizedException
 import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.tags.Tag
@@ -66,6 +67,8 @@ object QuizRequests {
         var response = UserRequests.httpClient.newCall(request).execute()
         if(response.code() == 401){
             throw UnauthorizedException()
+        }else if(response.code()== 404){
+            throw QuizNotFoundException()
         }
         else if(response.code()!= 200){
             throw InternalServerErrorException()

@@ -15,33 +15,37 @@ import com.nuclearfoxes.data.models.quiz.QuizAttempt
 class ResultAdapter(var quizAttempt:QuizAttempt,
                     var mContext:Context)
     :BaseAdapter(){
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertedView = convertView
 
         val inflater =
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        convertedView = when(questionsAndAnswers[position].first.type){
-            QuestionType.MULTIPLE_CHOICE-> {
+        convertedView = when(quizAttempt.quiz!!.questions!![position].type){
+            QuestionType.MULTIPLE_CHOICE.value-> {
                 var layout = inflater.inflate(R.layout.multiple_choice_question_layout, null)
-                LayoutSetup.setupMultipleLayout(questionsAndAnswers[position].first,
-                    mContext,layout,questionsAndAnswers[position].second)
+                LayoutSetup.setupMultipleLayout(quizAttempt.quiz!!.questions!![position],
+                    mContext,layout,quizAttempt.userQuizAnswer!!)
                 return layout
             }
-            QuestionType.OPEN ->  {
-                var layout = inflater.inflate(R.layout.open_question_layout, null)
-                LayoutSetup.setupOpenLayout(questionsAndAnswers[position].first,mContext,layout)
+            QuestionType.OPEN.value ->  {
+                var layout = inflater.inflate(R.layout.open_question_layout_result, null)
+                LayoutSetup.setupOpenLayout(quizAttempt.quiz!!.questions!![position],mContext,
+                    layout, quizAttempt.userQuizAnswer!!)
+
                 return layout
             }
-            QuestionType.SINGLE_CHOICE ->   {
+            QuestionType.SINGLE_CHOICE.value ->   {
                 var layout = inflater.inflate(R.layout.single_choice_question_layout, null)
-                LayoutSetup.setupSingleLayout(questionsAndAnswers[position].first, mContext,
-                    layout,questionsAndAnswers[position].second[0])
+                LayoutSetup.setupSingleLayout(quizAttempt.quiz!!.questions!![position], mContext,
+                    layout,quizAttempt.userQuizAnswer!!)
                 return layout
             }
             else ->{
                 var layout = inflater.inflate(R.layout.open_question_layout, null)
-                LayoutSetup.setupOpenLayout(questionsAndAnswers[position].first,mContext,layout)
+                LayoutSetup.setupOpenLayout(quizAttempt.quiz!!.questions!![position],
+                    mContext,layout, quizAttempt.userQuizAnswer!!)
                 return layout
             }
         }
@@ -49,7 +53,7 @@ class ResultAdapter(var quizAttempt:QuizAttempt,
     }
 
     override fun getItem(position: Int): Any {
-        return questionsAndAnswers[position]
+        return quizAttempt.quiz!!.questions!![position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -57,7 +61,7 @@ class ResultAdapter(var quizAttempt:QuizAttempt,
     }
 
     override fun getCount(): Int {
-        return questionsAndAnswers.size
+        return quizAttempt.quiz!!.questions!!.size
     }
 
 

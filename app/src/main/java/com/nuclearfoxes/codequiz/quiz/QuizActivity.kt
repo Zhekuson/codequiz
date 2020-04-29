@@ -1,6 +1,8 @@
 package com.nuclearfoxes.codequiz.quiz
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -13,6 +15,7 @@ import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
 import com.nuclearfoxes.codequiz.quiz.objects.TimeConverter
 import com.nuclearfoxes.codequiz.result.ResultActivity
+import com.nuclearfoxes.data.api.StatsRequests
 import com.nuclearfoxes.data.models.answers.UserQuizAnswer
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
@@ -20,6 +23,8 @@ import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
 import kotlinx.android.synthetic.main.activity_quiz.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -31,10 +36,12 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
     lateinit var mAdapter: QuestionFragmentPagerAdapter
     lateinit var quiz: Quiz
     lateinit var quizAttempt: QuizAttempt
+    lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
         setContentView(R.layout.activity_quiz)
+        sharedPreferences = this.getSharedPreferences("MAIN", Context.MODE_PRIVATE)
         quiz = intent.getSerializableExtra("QUIZ") as Quiz
         quizAttempt = QuizAttempt(0,quiz,0, Date(),Date(),null)
         val timer = object: CountDownTimer(intent.getLongExtra("TIME_MS", 300000), 1000) {
@@ -58,7 +65,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         for (fragment in mAdapter.fragments){
             val qFragment = fragment as QuestionFragment
             when(qFragment.question.type){
-                QuestionType.MULTIPLE_CHOICE->{
+                QuestionType.MULTIPLE_CHOICE.value->{
                     var bools = qFragment.savedInfo.getBooleanArray("ANSWER")
                     if(bools!=null) {
                         for (i in 0 until bools.size) {
@@ -69,7 +76,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
                         }
                     }
                 }
-                QuestionType.OPEN->{
+                QuestionType.OPEN.value->{
                 if(qFragment.question.answers != null) {
                     if (qFragment.question.answers!![0].answerText ==
                         qFragment.savedInfo.getString("ANSWER", "?")
@@ -78,7 +85,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
                     }
                 }
                 }
-                QuestionType.SINGLE_CHOICE->{
+                QuestionType.SINGLE_CHOICE.value->{
                     if(qFragment.question.answers != null) {
                         for (answer in qFragment.question.answers!!) {
                             if (qFragment.savedInfo.getString("ANSWER")
@@ -90,12 +97,18 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
                         }
                     }
                 }
-                QuestionType.NONE->{}
+                QuestionType.NONE.value->{}
             }
         }
         quizAttempt.endDateTime = Date()
         var resultIntent = Intent(this, ResultActivity::class.java)
+        resultIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         resultIntent.putExtra("QUIZ_ATTEMPT",quizAttempt as Serializable)
+        GlobalScope.launch {
+            StatsRequests.putQuizAttempt(quizAttempt,
+                sharedPreferences.getString("EMAIL",""),
+                sharedPreferences.getString("JWT",""))
+        }
         startActivity(resultIntent)
     }
     override fun onStart() {

@@ -37,7 +37,7 @@ class QuestionFragment(val question: Question):Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = when(question.type){
-             QuestionType.MULTIPLE_CHOICE -> {
+             QuestionType.MULTIPLE_CHOICE.value -> {
 
                  var layout =inflater.inflate(
                      R.layout.multiple_choice_question_layout,
@@ -45,13 +45,13 @@ class QuestionFragment(val question: Question):Fragment() {
                  LayoutSetup.setupMultipleLayout(question,context!!,layout)
                  return layout
              }
-             QuestionType.OPEN ->{
+             QuestionType.OPEN.value ->{
                var layout = inflater.inflate(R.layout.open_question_layout,
                    container, false)
                  setupOpenLayout(question,context!!,layout)
                  return layout
              }
-             QuestionType.SINGLE_CHOICE -> {
+             QuestionType.SINGLE_CHOICE.value -> {
 
                  var layout = inflater.inflate(R.layout.single_choice_question_layout,
                      container, false)
@@ -59,7 +59,7 @@ class QuestionFragment(val question: Question):Fragment() {
                  return layout
              }
             else -> {
-                var layout =inflater.inflate(
+                var layout = inflater.inflate(
                     R.layout.multiple_choice_question_layout,
                     container, false)
                 return layout
@@ -70,13 +70,13 @@ class QuestionFragment(val question: Question):Fragment() {
     }
     fun bindListeners(){
         when(question.type){
-            QuestionType.SINGLE_CHOICE->{
+            QuestionType.SINGLE_CHOICE.value->{
                 single_choice_radio_group.setOnCheckedChangeListener{
                         radioGroup: RadioGroup, i: Int ->
                     storeData()
                 }
             }
-            QuestionType.OPEN->{
+            QuestionType.OPEN.value->{
                 open_question_edit_text.addTextChangedListener(object :TextWatcher{
                     override fun afterTextChanged(s: Editable?) {
                         storeData()
@@ -88,7 +88,7 @@ class QuestionFragment(val question: Question):Fragment() {
 
                 })
             }
-            QuestionType.MULTIPLE_CHOICE->{
+            QuestionType.MULTIPLE_CHOICE.value->{
                 for(child in checkboxes_layout.children){
                     child.setOnClickListener {
                         storeData()
@@ -100,7 +100,7 @@ class QuestionFragment(val question: Question):Fragment() {
     }
     fun storeData(){
         when(question.type){
-            QuestionType.SINGLE_CHOICE->{
+            QuestionType.SINGLE_CHOICE.value->{
                 for (i in 0 until single_choice_radio_group.childCount){
                     val rb= (single_choice_radio_group.getChildAt(i) as RadioButton)
                     if(rb.isChecked){
@@ -109,10 +109,10 @@ class QuestionFragment(val question: Question):Fragment() {
                     }
                 }
             }
-            QuestionType.OPEN->{
+            QuestionType.OPEN.value->{
                 savedInfo.putString("ANSWER", open_question_edit_text.text.toString())
             }
-            QuestionType.MULTIPLE_CHOICE->{
+            QuestionType.MULTIPLE_CHOICE.value->{
                 var answers = BooleanArray(checkboxes_layout.childCount)
                 for (cb in 0 until checkboxes_layout.childCount){
                     answers[cb] = (checkboxes_layout.getChildAt(cb) as CheckBox).isChecked
@@ -123,7 +123,7 @@ class QuestionFragment(val question: Question):Fragment() {
     }
     fun restoreData(){
         when (question.type) {
-            QuestionType.SINGLE_CHOICE -> {
+            QuestionType.SINGLE_CHOICE.value -> {
                 for (i in 0 until single_choice_radio_group.childCount){
                     val rb= (single_choice_radio_group.getChildAt(i) as RadioButton)
                     if(rb.text == savedInfo.getString("ANSWER")){
@@ -132,13 +132,13 @@ class QuestionFragment(val question: Question):Fragment() {
                     }
                 }
             }
-            QuestionType.OPEN -> {
+            QuestionType.OPEN.value -> {
                 var str: Editable = Editable.Factory.getInstance().newEditable(
-                    savedInfo!!.getString("ANSWER")
+                    savedInfo.getString("ANSWER","")
                 )
                 open_question_edit_text.text = str
             }
-            QuestionType.MULTIPLE_CHOICE -> {
+            QuestionType.MULTIPLE_CHOICE.value -> {
                 var answers = savedInfo!!.getBooleanArray("ANSWER")
                 for (cb in 0 until checkboxes_layout.childCount) {
                     if (answers[cb]) {
