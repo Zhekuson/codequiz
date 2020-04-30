@@ -1,4 +1,4 @@
-package com.nuclearfoxes.codequiz.ui.stats
+package com.nuclearfoxes.codequiz.ui.stats.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
 import com.nuclearfoxes.codequiz.R
-import com.nuclearfoxes.codequiz.ui.stats.adapters.StatsPartFragmentAdapter
-import com.nuclearfoxes.codequiz.ui.tests.TestsViewModel
-import kotlinx.android.synthetic.main.fragment_stats.*
+import com.nuclearfoxes.codequiz.ui.stats.StatsViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class StatsFragment:Fragment() {
@@ -27,16 +24,13 @@ class StatsFragment:Fragment() {
     ): View? {
         statsViewModel =
             ViewModelProviders.of(this).get(StatsViewModel::class.java)
+        GlobalScope.launch {
+            statsViewModel.getQuizAttempts(this@StatsFragment.context!!)
+        }
         val root = inflater.inflate(R.layout.fragment_stats, container, false)
-        val viewPager = root.findViewById<ViewPager>(R.id.stats_view_pager)
-        viewPager.adapter = StatsPartFragmentAdapter(childFragmentManager)
         return root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
     fun setupCharts(root:View){
 
         var all_random_chart = root.findViewById<BarChart>(0)

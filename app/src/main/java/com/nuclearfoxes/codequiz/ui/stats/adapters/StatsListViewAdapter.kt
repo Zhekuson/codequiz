@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.nuclearfoxes.codequiz.R
+import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
-class StatsRecyclerViewAdapter(var allRandomData:ArrayList<Float>,
-                               var examData:ArrayList<Float>,
-                               var allTagsStats:ArrayList<Pair<String,Float>>, var mContext: Context
-                               ):BaseAdapter() {
+class StatsListViewAdapter(listQuizAttempts:ArrayList<QuizAttempt>,
+                           var mContext: Context):BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertedView = convertView
 

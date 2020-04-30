@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_stats"
-        android:name="com.nuclearfoxes.codequiz.ui.stats.StatsFragment"
+        android:name="com.nuclearfoxes.codequiz.ui.stats.main.StatsFragment"
         android:label="Stats"
         tools:layout="@layout/fragment_stats" />
 

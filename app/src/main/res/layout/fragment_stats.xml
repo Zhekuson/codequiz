@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/stats_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <androidx.viewpager.widget.ViewPager
