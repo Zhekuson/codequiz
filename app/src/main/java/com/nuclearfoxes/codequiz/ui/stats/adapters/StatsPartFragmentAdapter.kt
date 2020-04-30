@@ -3,13 +3,9 @@ package com.nuclearfoxes.codequiz.ui.stats.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.google.android.gms.common.internal.Constants
 import com.nuclearfoxes.codequiz.ui.stats.tabs.StatsPartFragment
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
-import java.time.Instant
-import java.time.Period
 import java.util.*
-import kotlin.collections.ArrayList
 
 class StatsPartFragmentAdapter(var listQuizAttempt: ArrayList<QuizAttempt>,fm:FragmentManager)
     :FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -37,5 +33,12 @@ class StatsPartFragmentAdapter(var listQuizAttempt: ArrayList<QuizAttempt>,fm:Fr
 
     override fun getCount(): Int {
         return 3
+    }
+    override fun getPageTitle(position: Int): CharSequence? { // генерируем заголовок в зависимости от позиции
+        return when(position){
+            0->"Today"
+            1->"Week"
+            else->"All time"
+        }
     }
 }

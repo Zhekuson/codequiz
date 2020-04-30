@@ -7,13 +7,17 @@ import com.nuclearfoxes.data.models.quiz.QuizAttempt
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class StatsViewModel(context: Context):ViewModel() {
+class StatsViewModel():ViewModel() {
     lateinit var listQuizAttempt: ArrayList<QuizAttempt>
-    suspend fun getQuizAttempts(context: Context){
+    interface LoadingFinishedListener{
+        fun onFinish()
+    }
+    suspend fun getQuizAttempts(context: Context, listener:LoadingFinishedListener ){
         listQuizAttempt = StatsRequests.getAllQuizAttempts(
             context.getSharedPreferences("MAIN",
-                Context.MODE_PRIVATE).getString("JWT",""),
+                Context.MODE_PRIVATE).getString("EMAIL",""),
             context.getSharedPreferences("MAIN",
-                Context.MODE_PRIVATE).getString("EMAIL",""))
+                Context.MODE_PRIVATE).getString("JWT",""))
+        listener.onFinish()
     }
 }

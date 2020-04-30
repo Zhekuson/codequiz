@@ -10,11 +10,14 @@ import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.*
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.ui.stats.StatsViewModel
+import com.nuclearfoxes.codequiz.ui.stats.adapters.StatsPartFragmentAdapter
+import kotlinx.android.synthetic.main.fragment_stats.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class StatsFragment:Fragment() {
+class StatsFragment:Fragment(), StatsViewModel.LoadingFinishedListener {
     private lateinit var statsViewModel: StatsViewModel
 
     override fun onCreateView(
@@ -25,12 +28,18 @@ class StatsFragment:Fragment() {
         statsViewModel =
             ViewModelProviders.of(this).get(StatsViewModel::class.java)
         GlobalScope.launch {
-            statsViewModel.getQuizAttempts(this@StatsFragment.context!!)
+            statsViewModel.getQuizAttempts(this@StatsFragment.context!!, this@StatsFragment)
         }
         val root = inflater.inflate(R.layout.fragment_stats, container, false)
+
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+    }
     fun setupCharts(root:View){
 
         var all_random_chart = root.findViewById<BarChart>(0)
@@ -48,5 +57,14 @@ class StatsFragment:Fragment() {
 
         all_random_chart.data = dataset1
         all_random_chart.setScaleEnabled(true)
+    }
+
+    override fun onFinish() {
+        GlobalScope.launch(Dispatchers.Main) {
+            stats_view_pager.adapter = StatsPartFragmentAdapter(
+                statsViewModel.listQuizAttempt, fragmentManager!!
+            )
+            stats_tab_layout.setupWithViewPager(stats_view_pager)
+        }
     }
 }

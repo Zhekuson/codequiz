@@ -7,10 +7,10 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/fab_margin"
         android:elevation="@dimen/thumb_and_default_margin">
-        <com.github.mikephil.charting.charts.BarChart
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/data_bar_chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="400dp"/>
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>

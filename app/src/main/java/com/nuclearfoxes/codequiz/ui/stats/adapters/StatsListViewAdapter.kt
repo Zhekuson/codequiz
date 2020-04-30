@@ -1,14 +1,18 @@
 package com.nuclearfoxes.codequiz.ui.stats.adapters
 
 import android.content.Context
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
+import com.nuclearfoxes.data.models.quiz.QuizType
 
-class StatsListViewAdapter(listQuizAttempts:ArrayList<QuizAttempt>,
+class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                            var mContext: Context):BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertedView = convertView
@@ -19,10 +23,31 @@ class StatsListViewAdapter(listQuizAttempts:ArrayList<QuizAttempt>,
         //TODO add data converter and bind
         when(position){
             0->{
+                var attempts = listQuizAttempts.filter {
+                    x->x.quiz!!.quizType == QuizType.ALL_RANDOM.value
+                }
                 convertedView = inflater.inflate(R.layout.bar_chart_layout, null)
+                var lineChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+                var winrate = ArrayList<Float>()
+                for (attempt in attempts){
+                    winrate.add(attempt.countRightAnswers().toFloat()/
+                            attempt.quiz!!.questions!!.size.toFloat())
+                }
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"All random winrate")
             }
             1->{
+                var attempts = listQuizAttempts.filter {
+                        x->x.quiz!!.quizType == QuizType.EXAM.value
+                }
                 convertedView = inflater.inflate(R.layout.bar_chart_layout, null)
+                var barChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+            }
+            2->{
+                var attempts = listQuizAttempts.filter {
+                        x->x.quiz!!.quizType == QuizType.CUSTOM.value
+                }
+                convertedView = inflater.inflate(R.layout.bar_chart_layout, null)
+                var barChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
             }
             else->{
                 convertedView = inflater.inflate(R.layout.tag_rate_layout, null)
@@ -32,17 +57,7 @@ class StatsListViewAdapter(listQuizAttempts:ArrayList<QuizAttempt>,
     }
 
     override fun getItem(position: Int): Any {
-        return when(position){
-            0->{
-                allRandomData
-            }
-            1->{
-                examData
-            }
-            else->{
-                allTagsStats
-            }
-        }
+        return position
     }
 
     override fun getItemId(position: Int): Long {
@@ -50,6 +65,6 @@ class StatsListViewAdapter(listQuizAttempts:ArrayList<QuizAttempt>,
     }
 
     override fun getCount(): Int {
-        return 3
+        return 4
     }
 }

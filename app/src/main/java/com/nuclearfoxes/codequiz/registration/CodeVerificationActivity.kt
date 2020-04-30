@@ -29,8 +29,8 @@ class CodeVerificationActivity : AppCompatActivity() {
         sharedPreferences = this.getSharedPreferences("MAIN",Context.MODE_PRIVATE)
          coroutineExceptionHandler =
             CoroutineExceptionHandler { _,t->
-                Toast.makeText(this@CodeVerificationActivity,"Error happened, try again",
-                    Toast.LENGTH_LONG).show()
+                /*Toast.makeText(this@CodeVerificationActivity,"Error happened, try again",
+                    Toast.LENGTH_LONG).show()*/
                 code_verification_progress_bar.visibility = View.INVISIBLE
             }
         setupClickListeners()
@@ -39,7 +39,7 @@ class CodeVerificationActivity : AppCompatActivity() {
         submit_button.setOnClickListener {
             try {
                 GlobalScope.launch(coroutineExceptionHandler) {
-                    code_verification_progress_bar.visibility = View.VISIBLE
+                    //code_verification_progress_bar.visibility = View.VISIBLE
                     var JWT = UserRequests.verifyEmail(
                         intent.getIntExtra("SESSIONID", 0),
                         code_edit_text.text.toString().toInt(),
@@ -51,7 +51,7 @@ class CodeVerificationActivity : AppCompatActivity() {
                     editor.putString("EMAIL", intent.getStringExtra("EMAIL"))
                     editor.putString("JWT", JWT)
                     editor.apply()
-                    code_verification_progress_bar.visibility = View.INVISIBLE
+                    //code_verification_progress_bar.visibility = View.INVISIBLE
                     startActivity(intent1)
                 }
             }catch (e:VerificationException){

@@ -13,14 +13,15 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 data class QuizAttempt(@JsonProperty("id")var id:Int,
                        @JsonProperty("quiz") @JsonSetter(nulls = Nulls.DEFAULT)var quiz:Quiz?,
                        @JsonProperty("userId")var userId: Int,
                        @JsonProperty("startDateTime")
-                       @JsonFormat(pattern = "yyyy-MM-d'T'HH:mm:ss.SSS")var startDateTime: Date?,
+                       @JsonFormat(pattern = "yyyy-MM-d'T'HH:mm:ss")var startDateTime: Date?,
                        @JsonProperty("endDateTime")
-                       @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")var endDateTime: Date?,
+                       @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")var endDateTime: Date?,
                        @JsonProperty("userQuizAnswer")var userQuizAnswer: UserQuizAnswer?):Serializable{
     companion object {
         private val ISO_8601_DATE_TIME: DateFormat =
@@ -39,27 +40,50 @@ data class QuizAttempt(@JsonProperty("id")var id:Int,
                             break
                         }
                     }
-                    if(userQuizAnswer!!.userAnswers!!.contains(rightAnswer)){
-                        counter++
+                    if(userQuizAnswer!!.userAnswers!=null) {
+                        if (userQuizAnswer!!
+                                .userAnswers!!
+                                .count{ x ->
+                                    rightAnswer.answerText == x.answerText } > 0) {
+                            counter++
+                        }
                     }
                 }
                 QuestionType.MULTIPLE_CHOICE.value->{
-                    var rightAnswers:ArrayList<Answer> = ArrayList()
+                    var rightAnswers:List<String> = ArrayList()
                     for (answer in question.answers!!){
                         if(answer.isRight!!){
-                            rightAnswers.add(answer)
+                            rightAnswers +=(answer.answerText!!)
                         }
                     }
-                    if(userQuizAnswer!!.userAnswers!!.containsAll(rightAnswers)
-                        && userQuizAnswer!!.userAnswers!!.count{it.questionId==question.id}
-                        == rightAnswers.size){
-                        counter++
+                    if(userQuizAnswer!!.userAnswers != null)
+                    {
+                        var userAnswers = ArrayList<String>()
+                        for (i in 0 until userQuizAnswer!!.userAnswers!!.size){
+                            if((userQuizAnswer!!.userAnswers!![i].questionId==question.id)){
+                                userAnswers.add(userQuizAnswer!!.userAnswers!![i].answerText!!)
+                            }
+                        }
+                        var removedAnswers = ArrayList<String>()
+                        for (i in 0 until userAnswers.size){
+                            rightAnswers = rightAnswers.filter{ x->!userAnswers[i].equals(x) }
+                            removedAnswers.add(userAnswers[i])
+                        }
+                        userAnswers.removeAll(removedAnswers)
+                        if(rightAnswers.isEmpty() && userAnswers.isEmpty()){
+                            counter++
+                        }
                     }
+
+
                 }
                 QuestionType.OPEN.value->{
-                    if(userQuizAnswer!!.userAnswers!=null) {
-                        if (userQuizAnswer!!.userAnswers!!.contains(question.answers!![0])){
-                            counter++
+                    if(userQuizAnswer!!.userAnswers != null) {
+                        for (userAnswer in userQuizAnswer!!.userAnswers!!){
+                            if(userAnswer.questionId == question.id){
+                                counter++
+                                break
+                            }
                         }
                     }
                 }
