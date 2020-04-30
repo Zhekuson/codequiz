@@ -49,7 +49,7 @@ object QuizRequests {
                 TagSerializer.serializeTagList(tags)))
             .addHeader("Authorization","Bearer "+ JWT)
             .url(Config.apiAddress+"quiz/custom?questionsCount=" +
-                    "${questionsCount}&minutesCount${minutesCount}").build()
+                    "${questionsCount}&minutesCount=${minutesCount}").build()
         var response = UserRequests.httpClient.newCall(request).execute()
         if(response.code() == 401){
             throw UnauthorizedException()

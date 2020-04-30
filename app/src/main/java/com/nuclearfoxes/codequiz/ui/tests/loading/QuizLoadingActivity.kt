@@ -41,6 +41,7 @@ class QuizLoadingActivity : AppCompatActivity() {
                         sharedPreferences.getString("JWT", "-")!!,
                         tags, questionsCount, minutesCount
                     )
+                    quiz.minutes = minutesCount
                     intentNext.putExtra("TIME_MS", quiz.minutes * 60000L)
                 }
                 "RANDOM" -> {
@@ -53,10 +54,12 @@ class QuizLoadingActivity : AppCompatActivity() {
                     quiz = QuizRequests.getExamQuiz(sharedPreferences.getString("JWT", "-")!!)
                 }
                 "BY_ID" -> {
+                    //quiz.minutes = 1
                     quiz = QuizRequests.getQuizById(
                         sharedPreferences.getString("JWT", "-")!!,
                         intent.getIntExtra("ID", 1)
                     )
+
                     intentNext.putExtra("TIME_MS", quiz.minutes * 60000L)
                 }
                 else -> {

@@ -5,7 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.SeekBar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.nuclearfoxes.codequiz.R
@@ -18,8 +21,11 @@ import com.nuclearfoxes.data.api.TagsRequests
 import com.nuclearfoxes.data.models.tags.Tag
 import com.nuclearfoxes.data.models.tags.TagCountPair
 import kotlinx.android.synthetic.main.activity_custom_test.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     ChooseTagFragment.ConfirmationListener {
@@ -36,9 +42,16 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_test)
+        MAX_QUESTIONS_COUNT = 1
         sharedPreferences = this.getSharedPreferences("MAIN", Context.MODE_PRIVATE)
-        GlobalScope.launch {
-            tagCountPairs = TagsRequests.getTagCountPairs(sharedPreferences.getString("JWT",""))
+
+        GlobalScope.launch(Dispatchers.Main) {
+            max_questions_progress_bar.visibility = View.VISIBLE
+            this.launch(Dispatchers.IO) {
+                tagCountPairs =
+                    TagsRequests.getTagCountPairs(sharedPreferences.getString("JWT", ""))
+            }
+            max_questions_progress_bar.visibility = View.INVISIBLE
         }
         this.getSupportActionBar()?.hide()
         setupAdaptersAndClickListeners()
@@ -49,6 +62,13 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
             intentNext.putExtra("MODE", "CUSTOM")
             intentNext.putExtra("MINUTES", time_seek_bar_tests.progress+1)
             intentNext.putExtra("QUESTIONS_COUNT", question_count_seek_bar.progress+1)
+            var tags:ArrayList<Tag> = ArrayList()
+            for(tagTag in tagsTags){
+                if(tagTag.second){
+                    tags.add(tagTag.first.tag)
+                }
+            }
+            intentNext.putExtra("TAGS", tags)
             startActivity(intentNext)
         }
 
@@ -63,7 +83,7 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
         question_count_seek_bar.max = (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT)/STEP_QUESTIONS
         question_count_seek_bar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                questions_count_textView.text = (MIN_QUESTIONS_COUNT + progress*STEP_QUESTIONS).toString() + " questions"
+                questions_count_textView.text = (MIN_QUESTIONS_COUNT + progress*STEP_QUESTIONS).toString() + "/${MAX_QUESTIONS_COUNT}"+ " questions"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
@@ -87,32 +107,51 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
 
     override fun onClose(chip: Chip) {
         (chip.parent as ChipGroup).removeView(chip)
+        var tags:ArrayList<Tag> = ArrayList()
         for(i in 0 until tagsTags.size) {
             if (tagsTags[i].first.tag.name == chip.text) {
                 tagsTags[i] = tagsTags[i].copy(first = tagsTags[i].first, second = false)
-                MAX_QUESTIONS_COUNT -= tagsTags[i].first.count
-                break
+            }
+            if(tagsTags[i].second){
+                tags.add(tagsTags[i].first.tag)
             }
         }
-        question_count_seek_bar.max = (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT)/STEP_QUESTIONS
-        TagsRequests.getMaxCountQuestions(
-            sharedPreferences.getString("JWT",""),
-            )
+        GlobalScope.launch(Dispatchers.Main) {
+            max_questions_progress_bar.visibility = View.VISIBLE
+            this.launch(Dispatchers.IO) {
+                MAX_QUESTIONS_COUNT = TagsRequests.getMaxCountQuestions(
+                    sharedPreferences.getString("JWT", ""), tags
+                )
+
+                question_count_seek_bar.max =
+                    (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT) / STEP_QUESTIONS
+            }
+            max_questions_progress_bar.visibility = View.INVISIBLE
+        }
     }
 
     override fun confirmButtonClicked() {
-        var counter = 0
         adapter.removeAllExceptAdd()
         var tags:ArrayList<Tag> = ArrayList()
         for (tagTag in tagsTags){
             if(tagTag.second){
                 tags.add(tagTag.first.tag)
-                counter += tagTag.first.count
                 adapter.addChip(tagTag.first)
             }
         }
-        MAX_QUESTIONS_COUNT = counter
-        question_count_seek_bar.max = (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT)/STEP_QUESTIONS
+        GlobalScope.launch(Dispatchers.Main){
+            max_questions_progress_bar.visibility = View.VISIBLE
+            this.launch(Dispatchers.IO) {
+                MAX_QUESTIONS_COUNT = TagsRequests.getMaxCountQuestions(
+                    sharedPreferences.getString("JWT", ""), tags
+                )
+
+                question_count_seek_bar.max =
+                    (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT) / STEP_QUESTIONS
+            }
+            max_questions_progress_bar.visibility = View.INVISIBLE
+        }
+
     }
 
     override fun cancelButtonClicked() {
