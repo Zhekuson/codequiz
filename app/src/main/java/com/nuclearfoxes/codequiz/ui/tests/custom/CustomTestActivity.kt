@@ -95,13 +95,18 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
             }
         }
         question_count_seek_bar.max = (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT)/STEP_QUESTIONS
+        TagsRequests.getMaxCountQuestions(
+            sharedPreferences.getString("JWT",""),
+            )
     }
 
     override fun confirmButtonClicked() {
         var counter = 0
         adapter.removeAllExceptAdd()
+        var tags:ArrayList<Tag> = ArrayList()
         for (tagTag in tagsTags){
             if(tagTag.second){
+                tags.add(tagTag.first.tag)
                 counter += tagTag.first.count
                 adapter.addChip(tagTag.first)
             }
