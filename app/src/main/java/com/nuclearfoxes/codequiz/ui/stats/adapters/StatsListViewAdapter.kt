@@ -33,6 +33,7 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                     winrate.add(attempt.countRightAnswers().toFloat()/
                             attempt.quiz!!.questions!!.size.toFloat())
                 }
+                lineChart.description.isEnabled = false
                 lineChart.data = LineChartConverter.toLineChartData(winrate,"All random winrate")
             }
             1->{
@@ -40,14 +41,28 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                         x->x.quiz!!.quizType == QuizType.EXAM.value
                 }
                 convertedView = inflater.inflate(R.layout.bar_chart_layout, null)
-                var barChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+                var lineChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+                var winrate = ArrayList<Float>()
+                for (attempt in attempts){
+                    winrate.add(attempt.countRightAnswers().toFloat()/
+                            attempt.quiz!!.questions!!.size.toFloat())
+                }
+                lineChart.description.isEnabled = false
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"Exam winrate")
             }
             2->{
                 var attempts = listQuizAttempts.filter {
                         x->x.quiz!!.quizType == QuizType.CUSTOM.value
                 }
                 convertedView = inflater.inflate(R.layout.bar_chart_layout, null)
-                var barChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+                var lineChart = convertedView.findViewById<LineChart>(R.id.data_bar_chart)
+                var winrate = ArrayList<Float>()
+                for (attempt in attempts){
+                    winrate.add(attempt.countRightAnswers().toFloat()/
+                            attempt.quiz!!.questions!!.size.toFloat())
+                }
+                lineChart.description.isEnabled = false
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"Custom winrate")
             }
             else->{
                 convertedView = inflater.inflate(R.layout.tag_rate_layout, null)

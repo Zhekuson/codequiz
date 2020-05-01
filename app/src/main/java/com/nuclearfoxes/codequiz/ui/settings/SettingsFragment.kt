@@ -34,7 +34,10 @@ class SettingsFragment:Fragment(), LanguageDialogFragment.ConfirmationListener {
 
     fun setupSwitch(root:View){
         var switch = root.findViewById<Switch>(R.id.theme_switch)
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->//TODO theme switcjh
+            switch.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked) {
+                    activity!!.setTheme(R.style.DarkAppTheme) //TODO theme switcjh
+                }
         }
     }
     fun setupLanguageDialog(root:View){

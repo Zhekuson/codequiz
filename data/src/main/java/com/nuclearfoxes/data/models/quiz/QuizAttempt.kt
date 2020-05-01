@@ -44,7 +44,7 @@ data class QuizAttempt(@JsonProperty("id")var id:Int,
                         if (userQuizAnswer!!
                                 .userAnswers!!
                                 .count{ x ->
-                                    rightAnswer.answerText == x.answerText } > 0) {
+                                    x.questionId == rightAnswer.questionId && rightAnswer.answerText == x.answerText } > 0) {
                             counter++
                         }
                     }

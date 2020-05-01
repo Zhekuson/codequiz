@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorMain</item>
         <item name="colorPrimaryDark">@color/colorAdditional</item>
@@ -12,7 +12,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorMain</item>
         <item name="colorPrimaryDark">@color/colorAdditional</item>
-        <item name="colorAccent">@color/colorAdditional</item>
+        <item name="colorAccent">@color/colorReserve</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
