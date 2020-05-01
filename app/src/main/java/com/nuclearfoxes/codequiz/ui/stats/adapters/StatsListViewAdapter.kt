@@ -20,7 +20,6 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
         val inflater =
             mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        //TODO add data converter and bind
         when(position){
             0->{
                 var attempts = listQuizAttempts.filter {
@@ -31,10 +30,11 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 var winrate = ArrayList<Float>()
                 for (attempt in attempts){
                     winrate.add(attempt.countRightAnswers().toFloat()/
-                            attempt.quiz!!.questions!!.size.toFloat())
+                            attempt.quiz!!.questions!!.size.toFloat() * 100)
                 }
                 lineChart.description.isEnabled = false
-                lineChart.data = LineChartConverter.toLineChartData(winrate,"All random winrate")
+                lineChart.legend.textSize = 18f
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"All random quiz rate, %")
             }
             1->{
                 var attempts = listQuizAttempts.filter {
@@ -48,7 +48,8 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                             attempt.quiz!!.questions!!.size.toFloat())
                 }
                 lineChart.description.isEnabled = false
-                lineChart.data = LineChartConverter.toLineChartData(winrate,"Exam winrate")
+                lineChart.legend.textSize = 18f
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"Exam quiz rate, %")
             }
             2->{
                 var attempts = listQuizAttempts.filter {
@@ -62,7 +63,8 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                             attempt.quiz!!.questions!!.size.toFloat())
                 }
                 lineChart.description.isEnabled = false
-                lineChart.data = LineChartConverter.toLineChartData(winrate,"Custom winrate")
+                lineChart.legend.textSize = 18f
+                lineChart.data = LineChartConverter.toLineChartData(winrate,"Custom quiz rate, %")
             }
             else->{
                 convertedView = inflater.inflate(R.layout.tag_rate_layout, null)

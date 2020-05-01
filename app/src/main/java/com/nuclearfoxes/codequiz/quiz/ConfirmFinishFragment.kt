@@ -40,6 +40,6 @@ class ConfirmFinishFragment () : DialogFragment(), DialogInterface.OnMultiChoice
         }
 
     override fun onClick(dialog: DialogInterface?, which: Int, isChecked: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }
