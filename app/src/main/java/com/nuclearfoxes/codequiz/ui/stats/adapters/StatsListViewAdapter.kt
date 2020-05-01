@@ -45,7 +45,7 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 var winrate = ArrayList<Float>()
                 for (attempt in attempts){
                     winrate.add(attempt.countRightAnswers().toFloat()/
-                            attempt.quiz!!.questions!!.size.toFloat())
+                            attempt.quiz!!.questions!!.size.toFloat() * 100)
                 }
                 lineChart.description.isEnabled = false
                 lineChart.legend.textSize = 18f
@@ -60,7 +60,7 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 var winrate = ArrayList<Float>()
                 for (attempt in attempts){
                     winrate.add(attempt.countRightAnswers().toFloat()/
-                            attempt.quiz!!.questions!!.size.toFloat())
+                            attempt.quiz!!.questions!!.size.toFloat() * 100)
                 }
                 lineChart.description.isEnabled = false
                 lineChart.legend.textSize = 18f

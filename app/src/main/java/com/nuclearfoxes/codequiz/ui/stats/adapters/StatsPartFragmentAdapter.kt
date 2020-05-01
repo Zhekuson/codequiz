@@ -14,9 +14,7 @@ class StatsPartFragmentAdapter(var listQuizAttempt: ArrayList<QuizAttempt>,fm:Fr
         when(position){
             0-> {
                 filteredQuizAttempts = listQuizAttempt.filter { x->
-                    x.startDateTime!!.day == Date().day &&
-                    x.startDateTime!!.month == Date().month &&
-                    x.startDateTime!!.year == Date().year
+                    Date().time - x.startDateTime!!.time < 86400000
                 }
             }
             1->{

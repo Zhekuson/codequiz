@@ -41,10 +41,12 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     lateinit var adapter:ChipGroupCustomAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_custom_test)
-        MAX_QUESTIONS_COUNT = 1
         sharedPreferences = this.getSharedPreferences("MAIN", Context.MODE_PRIVATE)
-
+        if(sharedPreferences.getBoolean("DARK_THEME",false)){
+            setTheme(R.style.DarkAppTheme)
+        }
+        setContentView(R.layout.activity_custom_test)
+        MAX_QUESTIONS_COUNT = 0
         GlobalScope.launch(Dispatchers.Main) {
             max_questions_progress_bar.visibility = View.VISIBLE
             this.launch(Dispatchers.IO) {

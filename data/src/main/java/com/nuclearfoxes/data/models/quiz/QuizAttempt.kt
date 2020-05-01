@@ -19,13 +19,13 @@ data class QuizAttempt(@JsonProperty("id")var id:Int,
                        @JsonProperty("quiz") @JsonSetter(nulls = Nulls.DEFAULT)var quiz:Quiz?,
                        @JsonProperty("userId")var userId: Int,
                        @JsonProperty("startDateTime")
-                       @JsonFormat(pattern = "yyyy-MM-d'T'HH:mm:ss")var startDateTime: Date?,
+                       @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")var startDateTime: Date?,
                        @JsonProperty("endDateTime")
                        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")var endDateTime: Date?,
                        @JsonProperty("userQuizAnswer")var userQuizAnswer: UserQuizAnswer?):Serializable{
     companion object {
         private val ISO_8601_DATE_TIME: DateFormat =
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ")
+            SimpleDateFormat("yyyy-MM-DD'T'HH:mm:ss.SSSZZZZZ")
     }
     fun countRightAnswers():Int{
         var counter = 0

@@ -40,10 +40,17 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
-        setContentView(R.layout.activity_quiz)
         sharedPreferences = this.getSharedPreferences("MAIN", Context.MODE_PRIVATE)
+        if(sharedPreferences.getBoolean("DARK_THEME",false)){
+            setTheme(R.style.DarkAppTheme)
+        }
+        setContentView(R.layout.activity_quiz)
+
+
         quiz = intent.getSerializableExtra("QUIZ") as Quiz
+        quiz_id_text_view.text = quiz.id.toString()
         quizAttempt = QuizAttempt(0,quiz,0, Date(),Date(),null)
+        //TIMER
         val timer = object: CountDownTimer(intent.getLongExtra("TIME_MS", 300000), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 time_textView.text = TimeConverter.timeInMsToString(millisUntilFinished)
@@ -54,10 +61,10 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         }
         question_id_textView.text = "#${quiz.questions!![0].id}"
         question_number_text_view.text = "${1}/${quiz.questions!!.size}"
-        timer.start()
         finish_attempt_button.setOnClickListener {
             ConfirmFinishFragment().show(supportFragmentManager,"TAG")
         }
+        timer.start()
     }
 
     fun finishQuiz(){

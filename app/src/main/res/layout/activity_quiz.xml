@@ -80,6 +80,26 @@
         app:layout_constraintTop_toBottomOf="@id/question_view_pager"
         android:layout_width="match_parent"
         android:layout_height="60dp">
+        <TextView
+            android:id="@+id/quiz_id_text_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/RegistrationTextViewStyle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Quiz ID:"
+            android:layout_margin="@dimen/fab_margin"
+            />
+        <TextView
+            android:id="@+id/quiz_id_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/RegistrationTextViewStyle"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_constraintLeft_toRightOf="@+id/quiz_id_text_label"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="75"
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/finish_attempt_button"
             app:layout_constraintTop_toTopOf="parent"

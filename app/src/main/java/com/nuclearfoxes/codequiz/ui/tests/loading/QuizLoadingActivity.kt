@@ -19,8 +19,11 @@ class QuizLoadingActivity : AppCompatActivity() {
     lateinit var sharedPreferences:SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz_loading)
         sharedPreferences = this.getSharedPreferences("MAIN",Context.MODE_PRIVATE)
+        if(sharedPreferences.getBoolean("DARK_THEME",false)){
+            setTheme(R.style.DarkAppTheme)
+        }
+        setContentView(R.layout.activity_quiz_loading)
     }
 
     override fun onStart() {

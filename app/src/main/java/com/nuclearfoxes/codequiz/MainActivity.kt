@@ -22,7 +22,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPreferences : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("MAIN",Context.MODE_PRIVATE)
+        if(sharedPreferences.getBoolean("DARK_THEME",false)){
+            setTheme(R.style.DarkAppTheme)
+        }
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
