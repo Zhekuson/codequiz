@@ -24,7 +24,7 @@ class StatsPartFragment(var position:Int,var listQuizAttempt: List<QuizAttempt>)
         var layout = inflater.inflate(
             R.layout.fragment_stats_part,
             container, false)
-            var lv = layout.findViewById<ListView>(R.id.stats_list_view)
+            var lv:ListView = layout.findViewById<ListView>(R.id.stats_list_view)
             lv.adapter = StatsListViewAdapter(listQuizAttempt,context!!)
             return layout
         }

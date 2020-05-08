@@ -35,34 +35,11 @@ class StatsFragment:Fragment(), StatsViewModel.LoadingFinishedListener {
         return root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-
-    }
-    fun setupCharts(root:View){
-
-        var all_random_chart = root.findViewById<BarChart>(0)
-        var entryList:ArrayList<BarEntry> = ArrayList()
-        for (i in 0..7){
-            entryList.add(BarEntry(i.toFloat(),i%7.toFloat()))
-        }
-        //var list:MutableList<Entry> = mutableListOf(0,3,4,3)
-
-        var dataset = BarDataSet(entryList,"rvd")
-        dataset.color = R.color.colorCorrectLight
-        var dataset1 = BarData(dataset)
-
-
-
-        all_random_chart.data = dataset1
-        all_random_chart.setScaleEnabled(true)
-    }
 
     override fun onFinish() {
         GlobalScope.launch(Dispatchers.Main) {
             stats_view_pager.adapter = StatsPartFragmentAdapter(
-                statsViewModel.listQuizAttempt, fragmentManager!!
+                statsViewModel.listQuizAttempt, childFragmentManager!!
             )
             stats_tab_layout.setupWithViewPager(stats_view_pager)
         }

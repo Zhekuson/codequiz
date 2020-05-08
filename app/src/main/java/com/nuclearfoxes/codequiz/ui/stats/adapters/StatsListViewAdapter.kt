@@ -67,7 +67,7 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 lineChart.data = LineChartConverter.toLineChartData(winrate,"Custom quiz rate, %")
             }
             else->{
-                convertedView = inflater.inflate(R.layout.tag_rate_layout, null)
+              //  convertedView = inflater.inflate(R.layout.tag_rate_layout, null)
             }
         }
         return convertedView!!
@@ -82,6 +82,6 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
     }
 
     override fun getCount(): Int {
-        return 4
+        return 3
     }
 }

@@ -37,6 +37,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
     lateinit var quiz: Quiz
     lateinit var quizAttempt: QuizAttempt
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var timer1:CountDownTimer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
@@ -51,7 +52,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         quiz_id_text_view.text = quiz.id.toString()
         quizAttempt = QuizAttempt(0,quiz,0, Date(),Date(),null)
         //TIMER
-        val timer = object: CountDownTimer(intent.getLongExtra("TIME_MS", 300000), 1000) {
+        timer1 = object: CountDownTimer(intent.getLongExtra("TIME_MS", 300000), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 time_textView.text = TimeConverter.timeInMsToString(millisUntilFinished)
             }
@@ -64,7 +65,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         finish_attempt_button.setOnClickListener {
             ConfirmFinishFragment().show(supportFragmentManager,"TAG")
         }
-        timer.start()
+        timer1.start()
     }
 
     fun finishQuiz(){
@@ -138,6 +139,7 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
 
     override fun confirmButtonClicked() {
         finishQuiz()
+        timer1.cancel()
     }
 
     override fun cancelButtonClicked() {

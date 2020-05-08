@@ -9,6 +9,7 @@ import java.util.*
 
 class StatsPartFragmentAdapter(var listQuizAttempt: ArrayList<QuizAttempt>,fm:FragmentManager)
     :FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
     override fun getItem(position: Int): Fragment {
         var filteredQuizAttempts:List<QuizAttempt>
         when(position){
@@ -32,7 +33,7 @@ class StatsPartFragmentAdapter(var listQuizAttempt: ArrayList<QuizAttempt>,fm:Fr
     override fun getCount(): Int {
         return 3
     }
-    override fun getPageTitle(position: Int): CharSequence? { // генерируем заголовок в зависимости от позиции
+    override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
             0->"Today"
             1->"Week"
