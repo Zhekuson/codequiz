@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.chip.Chip
@@ -18,18 +19,17 @@ import com.nuclearfoxes.codequiz.ui.tests.adapters.ChipGroupCustomAdapter
 import com.nuclearfoxes.codequiz.ui.tests.adapters.CloseIconClickListener
 import com.nuclearfoxes.codequiz.ui.tests.loading.QuizLoadingActivity
 import com.nuclearfoxes.data.api.TagsRequests
+import com.nuclearfoxes.data.exceptions.InternalServerErrorException
 import com.nuclearfoxes.data.models.tags.Tag
 import com.nuclearfoxes.data.models.tags.TagCountPair
 import kotlinx.android.synthetic.main.activity_custom_test.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.net.UnknownHostException
 import kotlin.coroutines.coroutineContext
 
 class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     ChooseTagFragment.ConfirmationListener {
-    var MAX_QUESTIONS_COUNT = 1
+    var MAX_QUESTIONS_COUNT = 0
     var MIN_QUESTIONS_COUNT = 1
     val STEP_QUESTIONS = 1
     val MAX_TIME:Int = 60
@@ -39,6 +39,18 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     lateinit var sharedPreferences: SharedPreferences
     var tagsTags:ArrayList<Pair<TagCountPair,Boolean>> = ArrayList()
     lateinit var adapter:ChipGroupCustomAdapter
+    var coroutineExceptionHandler = CoroutineExceptionHandler{_ , t->
+        MainScope().launch {
+            if (t is UnknownHostException) {
+                Toast.makeText(this@CustomTestActivity,
+                    "Error: no internet connection",Toast.LENGTH_LONG).show()
+            }
+            else if(t is InternalServerErrorException){
+                Toast.makeText(this@CustomTestActivity,
+                    "Internal server error",Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = this.getSharedPreferences("MAIN", Context.MODE_PRIVATE)
@@ -49,7 +61,8 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
         MAX_QUESTIONS_COUNT = 0
         GlobalScope.launch(Dispatchers.Main) {
             max_questions_progress_bar.visibility = View.VISIBLE
-            this.launch(Dispatchers.IO) {
+            var uiScope = CoroutineScope(coroutineExceptionHandler)
+            uiScope.launch(Dispatchers.IO) {
                 tagCountPairs =
                     TagsRequests.getTagCountPairs(sharedPreferences.getString("JWT", ""))
             }
@@ -61,17 +74,22 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     fun setupAdaptersAndClickListeners(){
         go_button.setOnClickListener{
             val intentNext = Intent(this, QuizLoadingActivity::class.java)
-            intentNext.putExtra("MODE", "CUSTOM")
-            intentNext.putExtra("MINUTES", time_seek_bar_tests.progress+1)
-            intentNext.putExtra("QUESTIONS_COUNT", question_count_seek_bar.progress+1)
-            var tags:ArrayList<Tag> = ArrayList()
-            for(tagTag in tagsTags){
-                if(tagTag.second){
-                    tags.add(tagTag.first.tag)
+            if(MAX_QUESTIONS_COUNT != 0) {
+                intentNext.putExtra("MODE", "CUSTOM")
+                intentNext.putExtra("MINUTES", time_seek_bar_tests.progress + 1)
+                intentNext.putExtra("QUESTIONS_COUNT", question_count_seek_bar.progress + 1)
+                var tags: ArrayList<Tag> = ArrayList()
+                for (tagTag in tagsTags) {
+                    if (tagTag.second) {
+                        tags.add(tagTag.first.tag)
+                    }
                 }
+                intentNext.putExtra("TAGS", tags)
+                startActivity(intentNext)
             }
-            intentNext.putExtra("TAGS", tags)
-            startActivity(intentNext)
+            else{
+                Toast.makeText(this,"No questions selected", Toast.LENGTH_LONG).show()
+            }
         }
 
         time_seek_bar_tests.max = (MAX_TIME - MIN_TIME)/STEP_TIME
@@ -120,7 +138,8 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
         }
         GlobalScope.launch(Dispatchers.Main) {
             max_questions_progress_bar.visibility = View.VISIBLE
-            this.launch(Dispatchers.IO) {
+            var uiScope = CoroutineScope(coroutineExceptionHandler)
+            uiScope.launch(Dispatchers.IO) {
                 MAX_QUESTIONS_COUNT = TagsRequests.getMaxCountQuestions(
                     sharedPreferences.getString("JWT", ""), tags
                 )
@@ -135,15 +154,17 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
     override fun confirmButtonClicked() {
         adapter.removeAllExceptAdd()
         var tags:ArrayList<Tag> = ArrayList()
+
         for (tagTag in tagsTags){
             if(tagTag.second){
                 tags.add(tagTag.first.tag)
                 adapter.addChip(tagTag.first)
             }
         }
+        max_questions_progress_bar.visibility = View.VISIBLE
         GlobalScope.launch(Dispatchers.Main){
-            max_questions_progress_bar.visibility = View.VISIBLE
-            this.launch(Dispatchers.IO) {
+            var uiScope = CoroutineScope(coroutineExceptionHandler)
+            uiScope.launch(Dispatchers.IO) {
                 MAX_QUESTIONS_COUNT = TagsRequests.getMaxCountQuestions(
                     sharedPreferences.getString("JWT", ""), tags
                 )
@@ -151,8 +172,8 @@ class CustomTestActivity : AppCompatActivity(), CloseIconClickListener,
                 question_count_seek_bar.max =
                     (MAX_QUESTIONS_COUNT - MIN_QUESTIONS_COUNT) / STEP_QUESTIONS
             }
-            max_questions_progress_bar.visibility = View.INVISIBLE
         }
+        max_questions_progress_bar.visibility = View.INVISIBLE
 
     }
 

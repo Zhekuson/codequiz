@@ -1,6 +1,7 @@
 package com.nuclearfoxes.data.api
 
 import com.nuclearfoxes.data.exceptions.InternalServerErrorException
+import com.nuclearfoxes.data.exceptions.QuizAttemptsNotFound
 import com.nuclearfoxes.data.exceptions.UnauthorizedException
 import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
@@ -20,8 +21,9 @@ object StatsRequests {
         var response = UserRequests.httpClient.newCall(request).execute()
         if (response.code() == 401){
             throw UnauthorizedException()
-        }
-        if(response.code() == 500){
+        } else if(response.code() == 404){
+            throw QuizAttemptsNotFound()
+        } else if(response.code() == 500){
             throw InternalServerErrorException()
         }
         try {
@@ -42,9 +44,11 @@ object StatsRequests {
             var response = UserRequests.httpClient.newCall(request).execute()
             if(response.code() == 500){
                 throw InternalServerErrorException()
+            }else if (response.code() == 401){
+                throw UnauthorizedException()
             }
         }catch (e:SocketTimeoutException){
-
+            throw e
         }
 
     }

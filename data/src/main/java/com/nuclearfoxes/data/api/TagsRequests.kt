@@ -19,12 +19,14 @@ object TagsRequests {
             .url(Config.apiAddress+"tags").build()
         try {
         var response = UserRequests.httpClient.newCall(request).execute()
+            if(response.code() == 401){
+                throw UnauthorizedException()
+            }else if(response.code() == 500){
+                throw InternalServerErrorException()
+            }
             return TagSerializer.deserializeTagCountPairs(response.body()!!.string())
         }catch (e:SocketTimeoutException){
             throw e
-        }
-        catch (e: Exception){
-            throw InternalServerErrorException()
         }
     }
     fun getMaxCountQuestions(JWT: String, tags:ArrayList<Tag>):Int{
@@ -37,12 +39,14 @@ object TagsRequests {
             .url(Config.apiAddress+"tags/count").build()
         try {
             var response = UserRequests.httpClient.newCall(request).execute()
+            if(response.code() == 401){
+                throw UnauthorizedException()
+            }else if(response.code() == 500){
+                throw InternalServerErrorException()
+            }
             return response.body()!!.string().toInt()
         }catch (e:SocketTimeoutException){
             throw e
-        }
-        catch (e: Exception){
-            throw InternalServerErrorException()
         }
     }
 }

@@ -9,13 +9,16 @@ import android.os.CountDownTimer
 import android.view.ViewParent
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.adapters.QuestionFragmentPagerAdapter
 import com.nuclearfoxes.codequiz.quiz.objects.TimeConverter
 import com.nuclearfoxes.codequiz.result.ResultActivity
 import com.nuclearfoxes.data.api.StatsRequests
+import com.nuclearfoxes.data.exceptions.InternalServerErrorException
 import com.nuclearfoxes.data.models.answers.UserQuizAnswer
 import com.nuclearfoxes.data.models.question.Question
 import com.nuclearfoxes.data.models.question.QuestionType
@@ -23,9 +26,9 @@ import com.nuclearfoxes.data.models.quiz.Quiz
 import com.nuclearfoxes.data.models.quiz.QuizAttempt
 
 import kotlinx.android.synthetic.main.activity_quiz.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.Serializable
+import java.net.UnknownHostException
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -38,6 +41,18 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
     lateinit var quizAttempt: QuizAttempt
     lateinit var sharedPreferences: SharedPreferences
     lateinit var timer1:CountDownTimer
+    var coroutineExceptionHandler = CoroutineExceptionHandler{_ , t->
+        MainScope().launch {
+            if (t is UnknownHostException) {
+                Toast.makeText(this@QuizActivity,
+                    "Error: no internet connection. Data will not be written to stats", Toast.LENGTH_LONG).show()
+            }
+            else if(t is InternalServerErrorException){
+                Toast.makeText(this@QuizActivity,
+                    "Internal server error", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
@@ -112,7 +127,8 @@ class QuizActivity : AppCompatActivity(),ConfirmFinishFragment.ConfirmationListe
         var resultIntent = Intent(this, ResultActivity::class.java)
         resultIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         resultIntent.putExtra("QUIZ_ATTEMPT",quizAttempt as Serializable)
-        GlobalScope.launch {
+        var scope = CoroutineScope(coroutineExceptionHandler)
+        scope.launch {
             StatsRequests.putQuizAttempt(quizAttempt,
                 sharedPreferences.getString("EMAIL",""),
                 sharedPreferences.getString("JWT",""))

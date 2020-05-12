@@ -11,13 +11,14 @@ import androidx.core.content.edit
 import com.nuclearfoxes.codequiz.MainActivity
 import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.data.api.UserRequests
+import com.nuclearfoxes.data.exceptions.TooMuchAttemptsException
 import com.nuclearfoxes.data.exceptions.VerificationException
 import kotlinx.android.synthetic.main.activity_code_verification.*
 import kotlinx.android.synthetic.main.activity_registration.*
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.lang.Exception
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class CodeVerificationActivity : AppCompatActivity() {
 
@@ -31,15 +32,35 @@ class CodeVerificationActivity : AppCompatActivity() {
             CoroutineExceptionHandler { _,t->
                 /*Toast.makeText(this@CodeVerificationActivity,"Error happened, try again",
                     Toast.LENGTH_LONG).show()*/
-                code_verification_progress_bar.visibility = View.INVISIBLE
+                try {
+                    MainScope().launch {
+                        code_verification_progress_bar.visibility = View.INVISIBLE
+                        error_text_view.visibility = View.VISIBLE
+                        if (t is TooMuchAttemptsException) {
+                            error_text_view.text =
+                                "Too much attempts, retry sending email(press back button & try input email again)"
+                        }
+                        if (t is VerificationException) {
+                            error_text_view.text = "Verification error: Wrong code"
+                        }
+                        if(t is SocketTimeoutException){
+                            error_text_view.text = "Error: request took too long"
+                        }
+                        if(t is UnknownHostException){
+                            error_text_view.text = "Error: no internet connection"
+                        }
+                    }
+                }catch (e:Exception){
+
+                }
             }
         setupClickListeners()
     }
     fun setupClickListeners(){
         submit_button.setOnClickListener {
-            try {
-                GlobalScope.launch(coroutineExceptionHandler) {
-                    //code_verification_progress_bar.visibility = View.VISIBLE
+            val uiScope: CoroutineScope = CoroutineScope(coroutineExceptionHandler)
+            code_verification_progress_bar.visibility = View.VISIBLE
+                uiScope.launch(Dispatchers.Default) {
                     var JWT = UserRequests.verifyEmail(
                         intent.getIntExtra("SESSIONID", 0),
                         code_edit_text.text.toString().toInt(),
@@ -51,18 +72,11 @@ class CodeVerificationActivity : AppCompatActivity() {
                     editor.putString("EMAIL", intent.getStringExtra("EMAIL"))
                     editor.putString("JWT", JWT)
                     editor.apply()
-                    //code_verification_progress_bar.visibility = View.INVISIBLE
+                    MainScope().launch {
+                    code_verification_progress_bar.visibility = View.INVISIBLE
+                        }
                     startActivity(intent1)
                 }
-            }catch (e:VerificationException){
-                error_text_view.visibility = View.VISIBLE
-                error_text_view.text = "Verification went wrong"
-            }
-            catch (e:Exception){
-                error_text_view.visibility = View.VISIBLE
-                error_text_view.text = "Something went wrong, try again"
-            }
-
         }
     }
 }

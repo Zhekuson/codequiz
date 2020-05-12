@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.nuclearfoxes.codequiz.R
@@ -35,6 +36,9 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 lineChart.description.isEnabled = false
                 lineChart.legend.textSize = 18f
                 lineChart.data = LineChartConverter.toLineChartData(winrate,"All random quiz rate, %")
+                if(attempts.isEmpty()) {
+                    lineChart.visibility = View.GONE
+                }
             }
             1->{
                 var attempts = listQuizAttempts.filter {
@@ -50,6 +54,9 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 lineChart.description.isEnabled = false
                 lineChart.legend.textSize = 18f
                 lineChart.data = LineChartConverter.toLineChartData(winrate,"Exam quiz rate, %")
+                if(attempts.isEmpty()) {
+                    lineChart.visibility = View.GONE
+                }
             }
             2->{
                 var attempts = listQuizAttempts.filter {
@@ -65,6 +72,9 @@ class StatsListViewAdapter(var listQuizAttempts:List<QuizAttempt>,
                 lineChart.description.isEnabled = false
                 lineChart.legend.textSize = 18f
                 lineChart.data = LineChartConverter.toLineChartData(winrate,"Custom quiz rate, %")
+                if(attempts.isEmpty()) {
+                    lineChart.visibility = View.GONE
+                }
             }
             else->{
               //  convertedView = inflater.inflate(R.layout.tag_rate_layout, null)

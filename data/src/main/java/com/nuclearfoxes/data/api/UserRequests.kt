@@ -2,6 +2,7 @@ package com.nuclearfoxes.data.api
 
 import com.nuclearfoxes.data.exceptions.InternalServerErrorException
 import com.nuclearfoxes.data.exceptions.MailException
+import com.nuclearfoxes.data.exceptions.TooMuchAttemptsException
 import com.nuclearfoxes.data.exceptions.VerificationException
 import com.nuclearfoxes.data.serializers.JWTSerializer
 import okhttp3.OkHttpClient
@@ -12,7 +13,6 @@ import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 
 object UserRequests {
-    @Volatile
     var httpClient = OkHttpClient()
     /**
      * returns session id
@@ -32,7 +32,7 @@ object UserRequests {
             throw e
         }
         catch (e:Exception){
-            throw InternalServerErrorException()
+            throw e
         }
     }
 
@@ -48,8 +48,10 @@ object UserRequests {
         var json = response.body()!!.string()
         if (response.code() == 500){
             throw InternalServerErrorException()
-        }else if(response.code() == 401){
+        }else if (response.code() == 401){
             throw VerificationException()
+        }else if (response.code() == 403){
+            throw TooMuchAttemptsException()
         }
         return JWTSerializer.deserializeJWT(json)
     }

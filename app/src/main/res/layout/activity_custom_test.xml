@@ -32,7 +32,7 @@
             style="@style/TextViewTestsStyleValues"
             app:layout_constraintLeft_toRightOf="@id/questions_count_text_label"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="1/1 questions"
+            android:text="0/0 questions"
             />
         <SeekBar
             app:layout_constraintTop_toBottomOf="@id/questions_count_text_label"
