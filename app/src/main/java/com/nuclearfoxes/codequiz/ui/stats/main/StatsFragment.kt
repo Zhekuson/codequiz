@@ -42,6 +42,7 @@ class StatsFragment:Fragment(), StatsViewModel.LoadingFinishedListener {
             stats_progress_bar.visibility = View.GONE
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

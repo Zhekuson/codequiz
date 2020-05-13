@@ -15,6 +15,7 @@ import com.nuclearfoxes.codequiz.R
 import com.nuclearfoxes.codequiz.quiz.QuizActivity
 import com.nuclearfoxes.codequiz.ui.tests.custom.CustomTestActivity
 import com.nuclearfoxes.codequiz.ui.tests.loading.QuizLoadingActivity
+import com.nuclearfoxes.data.exceptions.QuizNotFoundException
 import com.nuclearfoxes.data.models.tags.Tag
 import kotlinx.android.synthetic.main.fragment_tests.*
 import java.lang.Exception
@@ -62,6 +63,8 @@ class TestsFragment: Fragment() {
                 Toast.makeText(context,"Input valid ID!",Toast.LENGTH_LONG).show()
             }catch (e:Exception) {
                 Toast.makeText(context,"Error happened",Toast.LENGTH_LONG).show()
+            }catch (e:QuizNotFoundException){
+                Toast.makeText(context,"Quiz not found",Toast.LENGTH_LONG).show()
             }
         }
     }
